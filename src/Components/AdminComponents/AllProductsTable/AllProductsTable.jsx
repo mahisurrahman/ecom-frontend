@@ -1,0 +1,86 @@
+import React from "react";
+import SingleProductItem from "../SingleProductItem/SingleProductItem";
+
+const AllProductsTable = () => {
+  return (
+    <div className="mt-8 rounded-lg shadow-lg">
+      <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="overflow-hidden">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead className="bg-fourth">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Product Name
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Product Image
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Stock Remaining
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Buying Price
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Selling Price
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Discount
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Category
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-end text-xs text-white font-extrabold uppercase"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+                  <SingleProductItem />
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AllProductsTable;

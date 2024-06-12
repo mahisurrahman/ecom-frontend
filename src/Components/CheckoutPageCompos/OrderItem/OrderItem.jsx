@@ -1,0 +1,176 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../../ApiServices/useRequest";
+import Swal from "sweetalert2";
+
+const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts }) => {
+  const [isCODSelected, setIsCODSelected] = useState(false);
+  const [postRequest, getRequest] = useRequest();
+  const [individualStock, setIndividualStock] = useState(null);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const getStockRemaining = async () => {
+    try {
+      let productId = item.productId;
+      await getRequest(`/stocks/src/${productId}`)
+        .then((res) => {
+          setIndividualStock(res.data.data);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePlaceOrder = async (item) => {
+    try {
+      setButtonLoading(true);
+      const orderDetails = {
+        cartId: item._id,
+        userId: user._id,
+        productId: item.productId,
+        userName: user.userName,
+        userFullName: user.userFullName,
+        userPhoneNumber: user.phoneNumber,
+        userEmail: user.userEmail,
+        userCountry: customerDetails.shippingCountry,
+        userState: customerDetails.shippingState,
+        userAddress: customerDetails.shippingAddress,
+        userPostalCode: customerDetails.shippingPostalCode,
+        productName: item.productName,
+        productThumb: item.productImage,
+        productSellingPrice: item.totalPrice,
+        allTotalPrice: item.totalPrice,
+        totalQuantity: item.quantity,
+        discount: 0,
+      };
+
+      const createOrder = await postRequest("/orders/crt", orderDetails);
+      if (createOrder) {
+        let removeCartItem = await getRequest(
+          `/carts/remove/byid/${orderDetails.cartId}`
+        );
+        //Remove Cart Items from the Cart State//
+        const filterCart = allCarts.filter (
+          (ct) => ct._id !== orderDetails.cartId
+        );
+        setAllCarts(filterCart);
+
+        //Remove Cart Item using API//
+        if (removeCartItem) {
+          Swal.fire(`Placed order of ${item.productName}`);
+          navigate('/user/dash/orders');
+        }
+      }
+      setButtonLoading(false);
+    } catch (error) {
+      console.log(error);
+      setButtonLoading(false);
+    }
+  };
+
+  const handleCODClick = () => {
+    setIsCODSelected(!isCODSelected);
+  };
+
+  useEffect(() => {
+    getStockRemaining();
+  }, []);
+
+  return (
+    <div className="mt-10">
+      <div className="flex justify-between items-center text-xs">
+        <div className="flex justify-start gap-2 items-center">
+          <p>{item.quantity}</p>
+          <p>x {item.productName} </p>
+        </div>
+        <p>$ {item.totalPrice}</p>
+      </div>
+      <div className="my-2">
+        <hr />
+      </div>
+      <div className="mt-10">
+        <div className="flex justify-between gap-2 items-center text-xs">
+          <p>Sub Total</p>
+          <p>$ {item.totalPrice}</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs my-1">
+          <p>Tax</p>
+          <p>$ 0.00</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs my-1">
+          <p>Shipping</p>
+          <p>$ 0.00</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs mt-2">
+          <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
+            Do you have coupon
+          </p>
+          <p></p>
+        </div>
+        <div className="my-5">
+          <hr />
+        </div>
+      </div>
+      <div className="mt-10">
+        <div className="font-bold flex justify-between gap-2 items-center text-xl">
+          <p>Total</p>
+          <p>$ {item.totalPrice}</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs my-1">
+          <p>Single Product Price </p>
+          <p>{item.productPrice}</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs my-1">
+          <p>Stock Remaining</p>
+          <p>{individualStock?.stockQTY}</p>
+        </div>
+        <div className="flex justify-start gap-2 items-center text-xs mt-2">
+          <input type="checkbox" />
+          <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
+            Do you want to Online Payment?
+          </p>
+        </div>
+        <div className="my-5">
+          <hr />
+        </div>
+      </div>
+      <div className="bg-white mt-10 text-left px-10 pt-10 pb-5 rounded-md shadow-lg">
+        <p className="font-semibold">Choose Payment Method</p>
+        <button
+          className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${
+            isCODSelected
+              ? "border-fourth text-fourth"
+              : "border-ninth text-ninth"
+          }`}
+          onClick={handleCODClick}
+        >
+          Cash On <br /> Delivery
+        </button>
+        <p className="mt-10 text-xs text-center">
+          Please Pay After Getting Your Goods
+        </p>
+      </div>
+      <div className="mt-5">
+        {loading ? (
+          <p className="text-center text-2xl font-extrabold">Loading ...</p>
+        ) : (
+          <button
+            onClick={() => handlePlaceOrder(item)}
+            className={`w-full py-2 font-semibold rounded-md border-2 duration-300 ${
+              isCODSelected
+                ? "bg-fourth text-white border-fourth hover:bg-white hover:text-primary hover:cursor-pointer hover:duration-300"
+                : "bg-ninth text-white border-ninth cursor-not-allowed"
+            }`}
+            disabled={!isCODSelected || buttonLoading}
+          >
+            {buttonLoading ? "Processing..." : "Place Order"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default OrderItem;
