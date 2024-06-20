@@ -8,7 +8,6 @@ import AdminDashLayout from "../AdminDashLayout/AdminDashLayout";
 
 const UserDashLayout = () => {
   const { user } = useContext(AuthContext);
-  console.log(user, "Userrrrr or Adminnn");
 
   return (
     <div className="text-primary  bg-sixth">

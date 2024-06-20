@@ -142,7 +142,7 @@ const AllProducts = () => {
                     <p className="font-extrabold text-lg text-seventh">
                       Price:{" "}
                       <span className="text-xl font-extrabold text-primary">
-                        {item.sellingPrice} $
+                        {item.sellingPrice} Tk
                       </span>
                     </p>
                     <button

@@ -1,11 +1,14 @@
-import { FaEye } from "react-icons/fa";
+
 import UserOrderTotal from "../UserOrderTotal/UserOrderTotal";
 import UserOrderShippingAddress from "../UserOrderShippingAddress/UserOrderShippingAddress";
 import UserOrderedItems from "../UserOrderedItems/UserOrderedItems";
 import { useEffect, useState } from "react";
+import useRequest from "../../../ApiServices/useRequest";
+import Swal from "sweetalert2";
 
 const CurrentOrderDetails = ({selectedOrder}) => {
   const [currentState, setCurrentState] = useState(null);
+  const [postRequest, getRequest] = useRequest();
 
   const orderStateHandle = async()=>{
     try{
@@ -23,6 +26,24 @@ const CurrentOrderDetails = ({selectedOrder}) => {
     }
   }
 
+  const handleOrderDelete = async (id) =>{
+    try{
+      const orderId = id;
+      const removeOrder = await getRequest(`/orders/del/byId/${orderId}`);
+      if(removeOrder?.data?.error === false){
+        Swal.fire("Successfully Removed the Order");
+      }else{
+        Swal.fire("Failed to Remove the Order");
+        console.log(removeOrder);
+      }
+
+      return window.location.reload();
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(()=>{
     orderStateHandle();
   },[currentState])
@@ -33,9 +54,8 @@ const CurrentOrderDetails = ({selectedOrder}) => {
         <h1 className="font-bold">
           Order Details - <span className="font-normal">{selectedOrder._id}</span>
         </h1>
-        <div className="flex items-center gap-1 text-seventh font-semibold text-lg">
-          <FaEye></FaEye>
-          <p>Details</p>
+        <div className="flex items-center gap-1 text-seventh font-semibold text-sm">
+          <button onClick={()=> handleOrderDelete(selectedOrder._id)} className="px-4 py-1 font-bold rounded-full bg-red-700 text-white duration-700 hover:cursor-pointer hover:duration-700 hover:bg-red-400">Refund</button>
         </div>
       </div>
       <div className="mt-2 px-5 mx-10 flex item-center justify-between py-4 rounded-lg bg-eight">

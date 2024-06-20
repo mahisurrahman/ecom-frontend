@@ -12,7 +12,6 @@ const UserOrders = () => {
   const handleIndividualOrder = (uOrder) => {
     try {
       setSelectedOrder(uOrder);
-      console.log(uOrder);
     } catch (error) {
       console.log(error);
     }

@@ -48,11 +48,11 @@ const CurrentOrders = ({ uOrder, index }) => {
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-xs">
         <p className="font-bold">Delivery Charge: </p>
-        <p>10$</p>
+        <p>10 Tk</p>
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Product Purchased: </p>
-        <p>${uOrder.allTotalPrice}</p>
+        <p>{uOrder.allTotalPrice} Tk</p>
       </div>
       {/* <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Total Price: </p>
