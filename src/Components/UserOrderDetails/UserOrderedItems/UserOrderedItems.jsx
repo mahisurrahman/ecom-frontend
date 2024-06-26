@@ -24,7 +24,7 @@ const UserOrderedItems = ({selectedOrder}) => {
           <tbody>
             <tr className="bg-white dark:bg-gray-800 dark:border-gray-700">
               <th scope="row">
-                <img className="ml-10 w-20" src={`http://localhost:8000/images/${selectedOrder.productThumb}`} alt="" />
+                <img className="ml-10 w-20" src={`http://192.168.1.102:8000/images/${selectedOrder.productThumb}`} alt="" />
               </th>
               <th
                 scope="row"

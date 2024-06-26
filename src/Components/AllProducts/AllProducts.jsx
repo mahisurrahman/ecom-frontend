@@ -123,7 +123,7 @@ const AllProducts = () => {
                   <div className="flex items-center justify-center h-[50%] mt-8 px-2">
                     <img
                       className="w-[24vh] overflow-hidden rounded-lg"
-                      src={`http://localhost:8000/images/${item.productThumb}`}
+                      src={`http://192.168.1.102:8000/images/${item.productThumb}`}
                       alt=""
                     />
                   </div>
