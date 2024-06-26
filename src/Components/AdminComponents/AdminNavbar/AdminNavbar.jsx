@@ -43,7 +43,7 @@ const AdminNavbar = ({user}) => {
               <div className="flex items-center gap-3 border-l px-4">
                 <img
                   className="w-12 rounded-full"
-                  src={`http://192.168.1.102:8000/images/${user?.userImg}`}
+                  src={`http://localhost:8000/images/${user?.userImg}`}
                   alt=""
                 />
                 <div className="text-left">

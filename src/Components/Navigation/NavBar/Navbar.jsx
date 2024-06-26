@@ -242,7 +242,7 @@ const Navbar = () => {
           <div className="relative flex items-center">
             <div onMouseEnter={handleMouseEnterUserDropdown}>
               <img
-                src={`http://192.168.1.102:8000/images/${user.userImg}`}
+                src={`http://localhost:8000/images/${user.userImg}`}
                 className="border-2 border-fifth w-10 h-10 object-cover rounded-full ml-5"
                 alt=""
               />
