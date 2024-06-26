@@ -76,6 +76,7 @@ const AdminProfile = () => {
   const getAllDeletedOrders = async()=>{
     try{
       const deletedOrdersList = await getRequest('/orders/src/deleted/all');
+      console.log(deletedOrdersList);
       setAllDeletedOrders(deletedOrdersList?.data?.data);
     }catch(error){
       console.log(error);
