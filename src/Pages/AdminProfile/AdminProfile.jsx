@@ -1,5 +1,7 @@
 
 
+import { useEffect } from "react";
+import useRequest from "../../ApiServices/useRequest";
 import AdminDashChart from "../../Components/AdminComponents/AdminDashChart/AdminDashChart";
 import AdminOrderStatus from "../../Components/AdminComponents/AdminOrderStatus/AdminOrderStatus";
 import AdminProfileSummary from "../../Components/AdminComponents/AdminProfileSummary/AdminProfileSummary";
@@ -7,6 +9,21 @@ import AdminTodaysOrders from "../../Components/AdminComponents/AdminTodaysOrder
 import AdminTopProducts from "../../Components/AdminComponents/AdminTopProducts/AdminTopProducts";
 
 const AdminProfile = () => {
+  const [postRequest, getRequest] = useRequest();
+
+  const getAllOrders = () =>{
+    try{
+      //Blank Push//
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getAllOrders();
+  },[])
+
+
   return (
     <div className="h-[85vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-scrollbar-thumb">
      <AdminProfileSummary/>
