@@ -1,6 +1,6 @@
 import React from "react";
 
-const SingleProductItem = () => {
+const SingleProductItem = ({product}) => {
   return (
     <tr>
       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">

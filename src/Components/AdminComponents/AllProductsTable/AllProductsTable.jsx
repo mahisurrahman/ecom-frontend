@@ -1,7 +1,7 @@
 import React from "react";
 import SingleProductItem from "../SingleProductItem/SingleProductItem";
 
-const AllProductsTable = () => {
+const AllProductsTable = ({allProducts})=> {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div class="flex flex-col">
@@ -55,6 +55,18 @@ const AllProductsTable = () => {
                     </th>
                     <th
                       scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Active
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Deleted
+                    </th>
+                    <th
+                      scope="col"
                       class="px-6 py-3 text-end text-xs text-white font-extrabold uppercase"
                     >
                       Action
@@ -62,17 +74,9 @@ const AllProductsTable = () => {
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-                  <SingleProductItem />
-
+                  {
+                    allProducts.map((product)=> <SingleProductItem key={product._id} product={product} />)
+                  }
                 </tbody>
               </table>
             </div>
