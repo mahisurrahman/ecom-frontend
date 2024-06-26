@@ -10,11 +10,10 @@ const AdminOrderStatus = ({allPendingOrders, allDeliveredOrders, allDeletedOrder
         <h1 className="text-xl font-bold pl-5 border-l-4 border-third">
             Order Status
         </h1>
-        <div className="grid grid-cols-4 gap-4 mt-8">
+        <div className="grid grid-cols-3 gap-4 mt-8">
             <PendingOrders allPendingOrders={allPendingOrders}/>
             <DeliveredOrders allDeliveredOrder={allDeliveredOrders}/>
             <DeletedOrders allDeletedOrders={allDeletedOrders}/>
-            <CancelledOrders/>
         </div>
       </div>
     );

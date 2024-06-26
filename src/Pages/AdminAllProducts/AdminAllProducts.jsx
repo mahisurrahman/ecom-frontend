@@ -9,7 +9,7 @@ const AdminAllProducts = () => {
 
   const getAllProducts = async() =>{
     try{
-      const productsList = getRequest('/products/src/all');
+      const productsList = await getRequest('/products/src/all');
       setAllProducts(productsList?.data?.data);
 
     }catch(error){
@@ -28,7 +28,7 @@ const AdminAllProducts = () => {
         <h1 className="text-xl font-bold pl-5 border-l-4 border-seventh">
           All Products List
         </h1>
-       <CustomSearch/>
+       {/* <CustomSearch/> */}
       </div>
       <div className="px-4 py-2">
         <AllProductsTable allProducts={allProducts}/>

@@ -7,7 +7,7 @@ const DeliveredOrders = ({allDeliveredOrder}) => {
         <IoCheckmarkDone className="text-gray-600 text-4xl" />
         <div className="text-right">
           <h1 className="text-xl font-extrabold text-slate-600">
-            Delivered Orders
+            Cancelled Orders
           </h1>
           <p className="text-xl mt-1">{allDeliveredOrder.length}</p>
         </div>

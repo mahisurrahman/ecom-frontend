@@ -2,6 +2,8 @@ import React from "react";
 import SingleProductItem from "../SingleProductItem/SingleProductItem";
 
 const AllProductsTable = ({allProducts})=> {
+
+  
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div class="flex flex-col">
@@ -17,12 +19,12 @@ const AllProductsTable = ({allProducts})=> {
                     >
                       Product Name
                     </th>
-                    <th
+                    {/* <th
                       scope="col"
                       class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
                     >
                       Product Image
-                    </th>
+                    </th> */}
                     <th
                       scope="col"
                       class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
@@ -51,12 +53,6 @@ const AllProductsTable = ({allProducts})=> {
                       scope="col"
                       class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
                     >
-                      Category
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-start text-xs text-white font-extrabold uppercase"
-                    >
                       Active
                     </th>
                     <th
@@ -67,7 +63,7 @@ const AllProductsTable = ({allProducts})=> {
                     </th>
                     <th
                       scope="col"
-                      class="px-6 py-3 text-end text-xs text-white font-extrabold uppercase"
+                      class="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
                     >
                       Action
                     </th>
