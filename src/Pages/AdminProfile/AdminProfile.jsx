@@ -14,6 +14,9 @@ const AdminProfile = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [allAvailableProducts, setAllAvailableProducts] = useState([]);
+  const [allPendingOrders, setAllPendingOrders] = useState([]);
+  const [allDeliveredOrders, setAllDeliveredOrders] = useState([]);
+  const [allDeletedOrders, setAllDeletedOrders] = useState([]);
 
   const getAllOrders = async()=>{
     try{
@@ -45,7 +48,35 @@ const AdminProfile = () => {
   const getAvailableProducts = async () =>{
     try{
       const availableProductsList = await getRequest('/products/src');
-      console.log(availableProductsList?.data?.data)
+      setAllAvailableProducts(availableProductsList?.data?.data)
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  const getAllPendingOrders = async ()=>{
+    try{
+      const pendingOrdersList = await getRequest('/orders/src/pending/all');
+      setAllPendingOrders(pendingOrdersList?.data?.data);
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  const getAllDeliveredOrders = async () =>{
+    try{
+      const deliveredOrdersList = await getRequest('/orders/src/delivered/all');
+      setAllDeliveredOrders(deliveredOrdersList?.data?.data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  const getAllDeletedOrders = async()=>{
+    try{
+      const deletedOrdersList = await getRequest('/orders/src/deleted/all');
+      setAllDeletedOrders(deletedOrdersList?.data?.data);
     }catch(error){
       console.log(error);
     }
@@ -56,12 +87,15 @@ const AdminProfile = () => {
     getAllUsers();
     getAllProducts();
     getAvailableProducts();
+    getAllPendingOrders();
+    getAllDeliveredOrders();
+    getAllDeletedOrders();
   },[])
   
   return (
     <div className="h-[85vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-scrollbar-thumb">
-     <AdminProfileSummary allOrders={allOrders} allUsers={allUsers} allProducts={allProducts}/>
-     <AdminOrderStatus/>
+     <AdminProfileSummary allOrders={allOrders} allUsers={allUsers} allProducts={allProducts} allAvailableProducts={allAvailableProducts}/>
+     <AdminOrderStatus allPendingOrders={allPendingOrders} allDeliveredOrders={allDeliveredOrders} allDeletedOrders={allDeletedOrders}/>
      <AdminTodaysOrders/>
      <div className="mt-10 px-10 py-10 bg-white rounded-lg shadow-lg grid grid-cols-12 gap-5">
         <div className="col-span-8">
