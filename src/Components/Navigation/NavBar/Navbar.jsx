@@ -156,7 +156,9 @@ const Navbar = () => {
         <NavMenus />
         <div
           onMouseEnter={handleMouseEnterDropdown}
-          className={user ? "user-dropdown-wrapper ml-5" : "guest-dropdown-wrapper ml-5"}
+          className={
+            user ? "user-dropdown-wrapper ml-5" : "guest-dropdown-wrapper ml-5"
+          }
         >
           <NavLink
             to="/faq"
@@ -206,7 +208,7 @@ const Navbar = () => {
                     Flash Sales
                   </NavLink>
                 </div>
-                <div>
+                {/* <div>
                   <NavLink
                     to="/tandc"
                     className={({ isActive, isPending }) =>
@@ -233,7 +235,7 @@ const Navbar = () => {
                   >
                     Refund Policy
                   </NavLink>
-                </div>
+                </div> */}
               </div>
             </div>
           )}

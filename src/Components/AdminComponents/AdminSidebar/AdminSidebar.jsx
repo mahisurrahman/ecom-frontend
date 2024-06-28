@@ -17,8 +17,8 @@ import {
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-const AdminSidebar = ({user, setUser}) => {
-    const navigate = useNavigate('/')
+const AdminSidebar = ({ user, setUser }) => {
+  const navigate = useNavigate("/");
 
   const handleLogout = () => {
     const removeUser = localStorage.removeItem("userCreds");
@@ -53,7 +53,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaBoxOpen className="text-2xl  mr-4"/>
+        <FaBoxOpen className="text-2xl  mr-4" />
         {`Inventory (All Products)`}
       </NavLink>
       <NavLink
@@ -66,7 +66,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaPlusCircle className="text-2xl  mr-4"/>
+        <FaPlusCircle className="text-2xl  mr-4" />
         Create Product Listing
       </NavLink>
       <NavLink
@@ -79,7 +79,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaTimesCircle className="text-2xl  mr-4"/>
+        <FaTimesCircle className="text-2xl  mr-4" />
         Stock Out Products
       </NavLink>
       <NavLink
@@ -92,7 +92,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaTrash className="text-2xl  mr-4"/>
+        <FaTrash className="text-2xl  mr-4" />
         Deleted Products
       </NavLink>
       <NavLink
@@ -105,7 +105,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaListAlt className="text-2xl  mr-4"/>
+        <FaListAlt className="text-2xl  mr-4" />
         All Categories List
       </NavLink>
       <NavLink
@@ -118,7 +118,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaHourglassHalf className="text-2xl  mr-4"/>
+        <FaHourglassHalf className="text-2xl  mr-4" />
         Pending Orders
       </NavLink>
       <NavLink
@@ -131,7 +131,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaCheckCircle className="text-2xl  mr-4"/>
+        <FaCheckCircle className="text-2xl  mr-4" />
         Confirmed Orders
       </NavLink>
       <NavLink
@@ -144,7 +144,7 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaTrash className="text-2xl  mr-4"/>
+        <FaTrash className="text-2xl  mr-4" />
         Deleted Orders
       </NavLink>
       <NavLink
@@ -157,10 +157,10 @@ const AdminSidebar = ({user, setUser}) => {
             : "hover:text-fourth px-4 py-4 flex items-center gap-2"
         }
       >
-        <FaUsers className="text-2xl  mr-4"/>
+        <FaUsers className="text-2xl  mr-4" />
         All Customers Lists
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/admin/panel/alladmins"
         className={({ isActive, isPending }) =>
           isPending
@@ -211,7 +211,7 @@ const AdminSidebar = ({user, setUser}) => {
       >
         <FaStar className="text-2xl  mr-4"/>
         Ratings & Reviews
-      </NavLink>
+      </NavLink> */}
     </>
   );
 

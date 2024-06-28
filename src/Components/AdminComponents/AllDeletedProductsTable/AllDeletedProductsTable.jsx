@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import useRequest from "../../../ApiServices/useRequest";
-import AdminSingleStkOutItem from "../AdminSingleStkOutItem/AdminSingleStkOutItem";
+import AllDeletedProductsTableItem from "../AllDeletedProductsTableItem/AllDeletedProductsTableItem";
 
-const AdminStockOutTable = ({ allStockOuts }) => {
+const AllDeletedProductsTable = ({ deletedProducts }) => {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div className="flex flex-col">
@@ -26,12 +24,6 @@ const AdminStockOutTable = ({ allStockOuts }) => {
                     </th>
                     <th
                       scope="col"
-                      className="pl-10 py-3 text-start text-xs text-white font-extrabold uppercase"
-                    >
-                      Stock Remaining
-                    </th>
-                    <th
-                      scope="col"
                       className="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
                     >
                       Action
@@ -39,8 +31,11 @@ const AdminStockOutTable = ({ allStockOuts }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {allStockOuts.map((stock) => (
-                    <AdminSingleStkOutItem key={stock._id} stock={stock} />
+                  {deletedProducts.map((product) => (
+                    <AllDeletedProductsTableItem
+                      key={product._id}
+                      product={product}
+                    />
                   ))}
                 </tbody>
               </table>
@@ -52,4 +47,4 @@ const AdminStockOutTable = ({ allStockOuts }) => {
   );
 };
 
-export default AdminStockOutTable;
+export default AllDeletedProductsTable;

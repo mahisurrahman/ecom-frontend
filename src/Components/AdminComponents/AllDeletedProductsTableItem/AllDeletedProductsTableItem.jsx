@@ -1,25 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useRequest from "../../../ApiServices/useRequest";
+import React, { useState } from "react";
 
-const AdminSingleStkOutItem = ({ stock }) => {
+const AllDeletedProductsTableItem = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
-  const [postRequest, getRequest] = useRequest([]);
-  const [product, setProduct] = useState([]);
-
-  let prodId = stock.productId.toString();
-
-  const getProductDetails = async () => {
-    try {
-      const singleProd = await getRequest(`/products/src/byid/${prodId}`);
-      setProduct(singleProd?.data?.data, "SIngle PRoduct");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getProductDetails();
-  }, []);
 
   const openModal = () => {
     setShowModal(true);
@@ -28,7 +10,6 @@ const AdminSingleStkOutItem = ({ stock }) => {
   const closeModal = () => {
     setShowModal(false);
   };
-
   return (
     <>
       <tr className="h-[10vh] text-xs">
@@ -42,18 +23,15 @@ const AdminSingleStkOutItem = ({ stock }) => {
             className="w-[3vw] h-auto"
           />
         </td>
-        <td className="pl-20 py-2 text-xs text-gray-600 text-left">
-          {stock.stockQTY}
-        </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
           {product.isActive ? (
             <>
               {/* <button
-                type="button"
-                className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border border-red-500 hover:text-white hover:bg-red-500"
-              >
-                Delete
-              </button> */}
+                    type="button"
+                    className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border border-red-500 hover:text-white hover:bg-red-500"
+                  >
+                    Delete
+                  </button> */}
               <button
                 type="button"
                 className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-slate-600 px-2 py-1 mx-2 border border-slate-500 hover:text-white hover:bg-slate-500"
@@ -65,11 +43,11 @@ const AdminSingleStkOutItem = ({ stock }) => {
           ) : (
             <>
               {/* <button
-                type="button"
-                className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border border-green-500 hover:text-white hover:bg-green-500"
-              >
-                Activate
-              </button> */}
+                    type="button"
+                    className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border border-green-500 hover:text-white hover:bg-green-500"
+                  >
+                    Activate
+                  </button> */}
               <button
                 type="button"
                 className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-slate-600 px-2 py-1 mx-2 border border-slate-500 hover:text-white hover:bg-slate-500"
@@ -133,4 +111,4 @@ const AdminSingleStkOutItem = ({ stock }) => {
   );
 };
 
-export default AdminSingleStkOutItem;
+export default AllDeletedProductsTableItem;

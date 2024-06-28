@@ -9,7 +9,11 @@ const AdminStockOutProducts = () => {
   const getAllStockOuts = async () => {
     try {
       const getStkOuts = await getRequest("/stocks/stkouts/src");
-      setAllStockOuts(getStkOuts?.data?.data, "Stock Outs");
+      if (getStkOuts?.data?.data.length > 0) {
+        setAllStockOuts(getStkOuts?.data?.data, "Stock Outs");
+      } else {
+        setAllStockOuts([]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -20,12 +24,16 @@ const AdminStockOutProducts = () => {
   }, []);
 
   return (
-    <div className="px-10 py-10 bg-white rounded-lg">
+    <div className="px-10 py-10 bg-white rounded-lg h-[85vh]">
       <h1 className="text-xl font-extrabold tracking-wide">
         Admin Stock Out Products
       </h1>
       <div className="mt-10">
-        <AdminStockOutTable allStockOuts={allStockOuts} />
+        {allStockOuts.length <= 0 ? (
+          <p>No Stock Out Product Exists</p>
+        ) : (
+          <AdminStockOutTable allStockOuts={allStockOuts} />
+        )}
       </div>
     </div>
   );

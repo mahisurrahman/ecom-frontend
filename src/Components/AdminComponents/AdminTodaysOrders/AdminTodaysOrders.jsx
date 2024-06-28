@@ -7,109 +7,109 @@ const AdminTodaysOrders = () => {
         Today's Orders
       </h1>
       <div className="mt-8 border-4">
-        <div class="flex flex-col">
-          <div class="-m-1.5 overflow-x-auto">
-            <div class="p-1.5 min-w-full inline-block align-middle">
-              <div class="overflow-hidden">
-                <table class="min-w-full divide-y divide-gray-200">
+        <div className="flex flex-col">
+          <div className="-m-1.5 overflow-x-auto">
+            <div className="p-1.5 min-w-full inline-block align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr className="bg-fourth font-bold">
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Order Id
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Customer Name
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Product Quantity
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Order Date
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Total Amount
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                       >
                         Status
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-end text-xs font-medium text-white uppercase"
+                        className="px-6 py-3 text-end text-xs font-medium text-white uppercase"
                       >
                         Action
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-200">
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         {`asdhuahsd12312361231sduashdh`}
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         John Brown
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         3
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         22.05.2024
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         $ <span>{`45`}</span>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <span className="px-4 py-2 bg-yellow-200 rounded-lg font-bold">{`Pending`}</span>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button
                           type="button"
-                          class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-black disabled:opacity-50 disabled:pointer-events-none"
+                          className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-black disabled:opacity-50 disabled:pointer-events-none"
                         >
                           View
                         </button>
                       </td>
                     </tr>
                     <tr>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         {`asdhuahsd12312361231sduashdh`}
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         John Brown
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         3
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         22.05.2024
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         $ <span>{`45`}</span>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <span className="px-4 py-2 bg-yellow-200 rounded-lg font-bold">{`Pending`}</span>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button
                           type="button"
-                          class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-black disabled:opacity-50 disabled:pointer-events-none"
+                          className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-black disabled:opacity-50 disabled:pointer-events-none"
                         >
                           View
                         </button>
