@@ -217,13 +217,13 @@ const AdminSidebar = ({ user, setUser }) => {
 
   return (
     <div className="bg-white rounded-lg">
-      <div className="px-10 py-10 flex flex-col gap-5 font-semibold text-sm tracking-wide">
+      <div className="px-10 pt-10 pb-5 flex flex-col gap-5 font-semibold text-sm tracking-wide">
         {links}
       </div>
-      <div className="px-10 pb-10 rounded-lg">
+      <div className="px-10 pb-5 rounded-lg">
         <p
           onClick={handleLogout}
-          className="text-2xl font-extrabold duration-700 hover:duration-700 border-4 text-white border-red-400 bg-red-400 text-center px-4 py-2 rounded-lg hover:text-black hover:bg-white hover:cursor-pointer"
+          className="text-2xl font-extrabold duration-700 hover:duration-700 border-4 text-white border-red-400 bg-red-400 text-center px-4 py-1 rounded-lg hover:text-black hover:bg-white hover:cursor-pointer"
         >
           Logout
         </p>
