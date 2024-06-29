@@ -82,7 +82,7 @@ const AdminSingleStkOutItem = ({ stock }) => {
         </td>
       </tr>
       {showModal && (
-        <div className="fixed inset-0 z-10 my-10">
+        <div className="fixed inset-0 z-10 mb-10">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white rounded-lg p-4 max-w-6xl mx-auto z-20 relative overflow-auto py-10">

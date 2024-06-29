@@ -8,20 +8,18 @@ const SingleProductItem = ({ product }) => {
 
   let prodId = product._id;
 
-  const getStockRemaining = async() =>{
-    try{
+  const getStockRemaining = async () => {
+    try {
       const stockRm = await getRequest(`/stocks/src/${prodId}`);
-      setAllStck(stockRm?.data?.data)
-    }catch(error){
+      setAllStck(stockRm?.data?.data);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getStockRemaining();
-  },[])
-
+  }, []);
 
   const openModal = () => {
     setShowModal(true);
@@ -44,7 +42,9 @@ const SingleProductItem = ({ product }) => {
             className="w-[3vw] h-auto"
           />
         </td> */}
-        <td className="px-4 py-2 text-xs text-gray-600 text-center">{allStc.stockQTY}</td>
+        <td className="px-4 py-2 text-xs text-gray-600 text-center">
+          {allStc.stockQTY}
+        </td>
         <td className="px-4 py-2 text-xs text-gray-600">
           $ {product.buyingPrice}
         </td>
@@ -56,20 +56,20 @@ const SingleProductItem = ({ product }) => {
         </td>
         <td className="px-4 py-2 text-xs text-gray-600">
           {product.isActive ? (
-            <span className="px-2 py-1 font-bold text-green-500">
-              Active
-            </span>
+            <span className="px-2 py-1 font-bold text-green-500">Active</span>
           ) : (
-            <span className="font-bold text-green-500 text-3xl text-center ml-6">-</span>
+            <span className="font-bold text-green-500 text-3xl text-center ml-6">
+              -
+            </span>
           )}
         </td>
         <td className="px-4 py-2 text-xs text-gray-600">
           {product.isDeleted ? (
-            <span className="px-2 py-1 font-bold text-red-500">
-              Deleted
-            </span>
+            <span className="px-2 py-1 font-bold text-red-500">Deleted</span>
           ) : (
-            <span className="font-bold text-red-500 text-3xl text-center ml-8">-</span>
+            <span className="font-bold text-red-500 text-3xl text-center ml-8">
+              -
+            </span>
           )}
         </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
@@ -109,7 +109,7 @@ const SingleProductItem = ({ product }) => {
         </td>
       </tr>
       {showModal && (
-        <div className="fixed inset-0 z-10 my-10">
+        <div className="fixed inset-0 z-10 mb-10">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white rounded-lg p-4 max-w-6xl mx-auto z-20 relative overflow-auto">

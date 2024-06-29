@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PendingOrdersItem = ({ order }) => {
+const ConfirmedOrdersTableItem = ({ order }) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -32,13 +32,13 @@ const PendingOrdersItem = ({ order }) => {
           {formatDate(order.createdDate)}
         </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
-          <button
+          {/* <button
             type="button"
             className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border-2 border-green-600 hover:text-white hover:bg-green-500"
             onClick={openModal}
           >
             Confirm
-          </button>
+          </button> */}
           <button
             type="button"
             className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-slate-600 px-2 py-1 mx-2 border-2 border-slate-500 hover:text-white hover:bg-slate-500"
@@ -46,13 +46,13 @@ const PendingOrdersItem = ({ order }) => {
           >
             View
           </button>
-          <button
+          {/* <button
             type="button"
             className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border-2 border-red-600 hover:text-white hover:bg-red-500"
             onClick={openModal}
           >
             Delete
-          </button>
+          </button> */}
         </td>
       </tr>
       {showModal && (
@@ -122,4 +122,4 @@ const PendingOrdersItem = ({ order }) => {
   );
 };
 
-export default PendingOrdersItem;
+export default ConfirmedOrdersTableItem;
