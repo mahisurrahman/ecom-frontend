@@ -6,11 +6,40 @@ import CustomSearch from "../../Components/CustomSearch/CustomSearch";
 const AdminAllProducts = () => {
   const [postRequest, getRequest] = useRequest();
   const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getAllProducts = async () => {
     try {
       const productsList = await getRequest("/products/src/all");
       setAllProducts(productsList?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteProducts = async (id) => {
+    try {
+      setLoading(true);
+      await getRequest(`/products/del/${id}`);
+      // const updatedProducts = allProducts.filter(
+      //   (product) => product.id !== id
+      // );
+
+      const updatedProducts = await getRequest("/products/src/all");
+      setAllProducts(updatedProducts?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleActiveProducts = async (id) => {
+    try {
+      setLoading(true);
+      await getRequest(`/products/actv/${id}`);
+      const updatedProducts = await getRequest("/products/src/all");
+      setAllProducts(updatedProducts?.data?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +57,12 @@ const AdminAllProducts = () => {
         </h1>
       </div>
       <div className="px-4 py-2">
-        <AllProductsTable allProducts={allProducts} />
+        <AllProductsTable
+          allProducts={allProducts}
+          handleDeleteProducts={handleDeleteProducts}
+          handleActiveProducts={handleActiveProducts}
+          loading={loading}
+        />
       </div>
     </div>
   );

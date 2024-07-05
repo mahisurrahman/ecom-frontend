@@ -9,7 +9,7 @@ const AdminDeletedProducts = () => {
   const getDeletedProducts = async () => {
     try {
       const getDltProds = await getRequest("/products/deleted/src");
-      if (getDltProds.length > 0) {
+      if (getDltProds) {
         setDeletedProducts(getDltProds?.data?.data);
       } else {
         setDeletedProducts([]);
@@ -29,7 +29,7 @@ const AdminDeletedProducts = () => {
         Admin Deleted Products{" "}
       </h1>
       <div className="mt-10">
-        {deletedProducts.length <= 0 ? (
+        {!deletedProducts ? (
           <p>No Deleted Products Exists</p>
         ) : (
           <AllDeletedProductsTable deletedProducts={deletedProducts} />

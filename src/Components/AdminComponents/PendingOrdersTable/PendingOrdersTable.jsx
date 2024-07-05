@@ -1,7 +1,7 @@
 import React from "react";
 import PendingOrdersItem from "../PendingOrdersItem/PendingOrdersItem";
 
-const PendingOrdersTable = ({ allOrders }) => {
+const PendingOrdersTable = ({ allOrders, handleDeleteOrder }) => {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div className="flex flex-col">
@@ -31,6 +31,12 @@ const PendingOrdersTable = ({ allOrders }) => {
                     </th>
                     <th
                       scope="col"
+                      className="pl-20 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Pending
+                    </th>
+                    <th
+                      scope="col"
                       className="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
                     >
                       Action
@@ -39,7 +45,11 @@ const PendingOrdersTable = ({ allOrders }) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {allOrders.map((order) => (
-                    <PendingOrdersItem key={order._id} order={order} />
+                    <PendingOrdersItem
+                      key={order._id}
+                      order={order}
+                      handleDeleteOrder={handleDeleteOrder}
+                    />
                   ))}
                 </tbody>
               </table>

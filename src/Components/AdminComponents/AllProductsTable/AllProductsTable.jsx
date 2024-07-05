@@ -1,7 +1,12 @@
 import React from "react";
 import SingleProductItem from "../SingleProductItem/SingleProductItem";
 
-const AllProductsTable = ({ allProducts }) => {
+const AllProductsTable = ({
+  allProducts,
+  handleDeleteProducts,
+  handleActiveProducts,
+  loading,
+}) => {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div className="flex flex-col">
@@ -69,7 +74,13 @@ const AllProductsTable = ({ allProducts }) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {allProducts.map((product) => (
-                    <SingleProductItem key={product._id} product={product} />
+                    <SingleProductItem
+                      key={product._id}
+                      product={product}
+                      handleDeleteProducts={handleDeleteProducts}
+                      handleActiveProducts={handleActiveProducts}
+                      loading={loading}
+                    />
                   ))}
                 </tbody>
               </table>

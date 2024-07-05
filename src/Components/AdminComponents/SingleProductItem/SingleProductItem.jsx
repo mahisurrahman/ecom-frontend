@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useRequest from "../../../ApiServices/useRequest";
+import Loading101 from "../../Loading101/Loading101";
 
-const SingleProductItem = ({ product }) => {
+const SingleProductItem = ({
+  product,
+  handleDeleteProducts,
+  handleActiveProducts,
+  loading,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [postRequest, getRequest] = useRequest([]);
   const [allStc, setAllStck] = useState([]);
@@ -35,13 +41,6 @@ const SingleProductItem = ({ product }) => {
         <td className="px-4 py-2 text-xs font-medium text-gray-600">
           {product.productName}
         </td>
-        {/* <td className="px-4 py-2 text-xs font-medium text-gray-600">
-          <img
-            src={`http://localhost:8000/images/${product.productThumb}`}
-            alt=""
-            className="w-[3vw] h-auto"
-          />
-        </td> */}
         <td className="px-4 py-2 text-xs text-gray-600 text-center">
           {allStc.stockQTY}
         </td>
@@ -77,9 +76,10 @@ const SingleProductItem = ({ product }) => {
             <>
               <button
                 type="button"
+                onClick={() => handleDeleteProducts(product._id)}
                 className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border border-red-500 hover:text-white hover:bg-red-500"
               >
-                Delete
+                {loading && loading ? <Loading101 /> : <>Delete</>}
               </button>
               <button
                 type="button"
@@ -92,10 +92,11 @@ const SingleProductItem = ({ product }) => {
           ) : (
             <>
               <button
+                onClick={() => handleActiveProducts(product._id)}
                 type="button"
                 className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border border-green-500 hover:text-white hover:bg-green-500"
               >
-                Activate
+                {loading && loading ? <Loading101 /> : <> Activate</>}
               </button>
               <button
                 type="button"

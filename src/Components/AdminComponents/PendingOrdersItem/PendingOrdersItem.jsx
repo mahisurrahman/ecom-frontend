@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PendingOrdersItem = ({ order }) => {
+const PendingOrdersItem = ({ order, handleDeleteOrder }) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -31,11 +31,17 @@ const PendingOrdersItem = ({ order }) => {
         <td className="pl-20 py-2 text-xs text-gray-600 text-left">
           {formatDate(order.createdDate)}
         </td>
+        <td className="pl-20 py-2 text-xs text-gray-600 text-left">
+          {order && order.isPending === true ? (
+            <>Pending</>
+          ) : (
+            <p className="pl-6 text-2xl font-bold text-red-500">-</p>
+          )}
+        </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
           <button
             type="button"
-            className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border-2 border-green-600 hover:text-white hover:bg-green-500"
-            onClick={openModal}
+            className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border-2 border-green-500 hover:text-white hover:bg-green-500"
           >
             Confirm
           </button>
@@ -46,13 +52,17 @@ const PendingOrdersItem = ({ order }) => {
           >
             View
           </button>
-          <button
-            type="button"
-            className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border-2 border-red-600 hover:text-white hover:bg-red-500"
-            onClick={openModal}
-          >
-            Delete
-          </button>
+          {order && order.isDeleted === true ? (
+            <></>
+          ) : (
+            <button
+              type="button"
+              className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-red-600 px-2 py-1 mx-2 border-2 border-red-600 hover:text-white hover:bg-red-500"
+              onClick={() => handleDeleteOrder(order._id)}
+            >
+              Cancel
+            </button>
+          )}
         </td>
       </tr>
       {showModal && (
@@ -66,7 +76,7 @@ const PendingOrdersItem = ({ order }) => {
               >
                 &times;
               </button>
-              <h2 className="text-xl font-bold mb-4 text-center mb-10">
+              <h2 className="text-xl font-bold mb-4 text-center">
                 {order.productName}
               </h2>
               <img
