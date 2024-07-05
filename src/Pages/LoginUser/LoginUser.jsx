@@ -9,28 +9,29 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProviders";
 
 const LoginUser = () => {
-const {handleLoginData, loading, setLoading, user} = useContext(AuthContext);
-const navigate = useNavigate();
+  const { handleLoginData, loading, setLoading, user } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
 
- const handleLogin = async (event) =>{
-  try{
-    event.preventDefault();
+  const handleLogin = async (event) => {
+    try {
+      event.preventDefault();
       setLoading(true);
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
       const userCreds = { email, password };
       await handleLoginData(userCreds);
-      if(handleLoginData){
-        console.log(user);
-        navigate('/');
-      }else{
-        navigate('/login');
+      if (handleLoginData) {
+        console.log(user, "Userrrr");
+        navigate("/");
+      } else {
+        navigate("/login");
       }
-  }catch(error){
-    console.log(error);
-  }
- }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>

@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 
 const HeroSection = () => {
   return (
-    <div className="bgImage h-[40vh] flex items-center justify-center">
+    <div className="bgImage h-[35vh] flex items-center justify-center">
       <div className="w-full h-[94vh] bg-primary bg-opacity-60 flex flex-col items-center justify-center ">
         <div className="flex items-center justify-center ">
           <h1 className="text-center text-white text-5xl  font-bold">

@@ -3,9 +3,7 @@ import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { AiFillSkin } from "react-icons/ai";
 
-const AdminNavbar = ({user}) => {
-
-
+const AdminNavbar = ({ user }) => {
   return (
     <div className="h-[10vh] bg-fourth">
       <div className="grid grid-cols-12 h-full">
@@ -21,7 +19,7 @@ const AdminNavbar = ({user}) => {
             </div>
             <div className="flex items-center">
               <div className="px-4 py-2">
-                <Link to="/">
+                <Link to="/admin/panel/createproducts">
                   <div className="border-2 rounded-full bg-white text-fourth duration-500 px-4 py-2 flex items-center justify-center gap-3 hover:cursor-pointer hover:border-primary hover:text-primary hover:duration-500">
                     <p className="text-xl">
                       <AiFillSkin></AiFillSkin>
@@ -30,14 +28,14 @@ const AdminNavbar = ({user}) => {
                   </div>
                 </Link>
               </div>
-              <div className="px-4 border-l">
+              <div className="border-l">
                 <Link to="/">
-                  <div className="border-2 rounded-full duration-500 px-4 py-2 flex items-center justify-center gap-3 text-white hover:cursor-pointer hover:border-primary hover:text-primary hover:duration-500">
+                  {/* <div className="border-2 rounded-full duration-500 px-4 py-2 flex items-center justify-center gap-3 text-white hover:cursor-pointer hover:border-primary hover:text-primary hover:duration-500">
                     <p className="text-xl">
                       <IoHome></IoHome>
                     </p>
                     <p className="text-sm">Visit Site</p>
-                  </div>
+                  </div> */}
                 </Link>
               </div>
               <div className="flex items-center gap-3 border-l px-4">

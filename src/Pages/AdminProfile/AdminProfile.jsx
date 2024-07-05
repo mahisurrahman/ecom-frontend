@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import useRequest from "../../ApiServices/useRequest";
 import AdminDashChart from "../../Components/AdminComponents/AdminDashChart/AdminDashChart";
@@ -18,72 +16,71 @@ const AdminProfile = () => {
   const [allDeliveredOrders, setAllDeliveredOrders] = useState([]);
   const [allDeletedOrders, setAllDeletedOrders] = useState([]);
 
-  const getAllOrders = async()=>{
-    try{
-      const ordersList = await getRequest('/orders/src/all');
+  const getAllOrders = async () => {
+    try {
+      const ordersList = await getRequest("/orders/src/all");
       setAllOrders(ordersList?.data?.data);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllUsers = async()=>{
-    try{
-      const usersList = await getRequest('/users/src');
+  const getAllUsers = async () => {
+    try {
+      const usersList = await getRequest("/users/src");
       setAllUsers(usersList?.data?.data);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllProducts = async()=>{
-    try{
-      const productsList = await getRequest('/products/src/all');
+  const getAllProducts = async () => {
+    try {
+      const productsList = await getRequest("/products/src/all");
       setAllProducts(productsList?.data?.data);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAvailableProducts = async () =>{
-    try{
-      const availableProductsList = await getRequest('/products/src');
-      setAllAvailableProducts(availableProductsList?.data?.data)
-    }catch(error){
+  const getAvailableProducts = async () => {
+    try {
+      const availableProductsList = await getRequest("/products/src");
+      setAllAvailableProducts(availableProductsList?.data?.data);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllPendingOrders = async ()=>{
-    try{
-      const pendingOrdersList = await getRequest('/orders/src/pending/all');
+  const getAllPendingOrders = async () => {
+    try {
+      const pendingOrdersList = await getRequest("/orders/src/pending/all");
       setAllPendingOrders(pendingOrdersList?.data?.data);
-
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllDeliveredOrders = async () =>{
-    try{
-      const deliveredOrdersList = await getRequest('/orders/src/delivered/all');
+  const getAllDeliveredOrders = async () => {
+    try {
+      const deliveredOrdersList = await getRequest("/orders/src/delivered/all");
       setAllDeliveredOrders(deliveredOrdersList?.data?.data);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getAllDeletedOrders = async()=>{
-    try{
-      const deletedOrdersList = await getRequest('/orders/src/deleted/all');
+  const getAllDeletedOrders = async () => {
+    try {
+      const deletedOrdersList = await getRequest("/orders/src/deleted/all");
       console.log(deletedOrdersList);
       setAllDeletedOrders(deletedOrdersList?.data?.data);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getAllOrders();
     getAllUsers();
     getAllProducts();
@@ -91,21 +88,30 @@ const AdminProfile = () => {
     getAllPendingOrders();
     getAllDeliveredOrders();
     getAllDeletedOrders();
-  },[])
-  
+  }, []);
+
   return (
-    <div className="h-[85vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-scrollbar-thumb">
-     <AdminProfileSummary allOrders={allOrders} allUsers={allUsers} allProducts={allProducts} allAvailableProducts={allAvailableProducts}/>
-     <AdminOrderStatus allPendingOrders={allPendingOrders} allDeliveredOrders={allDeliveredOrders} allDeletedOrders={allDeletedOrders}/>
-     <AdminTodaysOrders/>
-     <div className="mt-10 px-10 py-10 bg-white rounded-lg shadow-lg grid grid-cols-12 gap-5">
+    <div className="">
+      <AdminProfileSummary
+        allOrders={allOrders}
+        allUsers={allUsers}
+        allProducts={allProducts}
+        allAvailableProducts={allAvailableProducts}
+      />
+      <AdminOrderStatus
+        allPendingOrders={allPendingOrders}
+        allDeliveredOrders={allDeliveredOrders}
+        allDeletedOrders={allDeletedOrders}
+      />
+      {/* <AdminTodaysOrders /> */}
+      {/* <div className="mt-10 px-10 py-10 bg-white rounded-lg shadow-lg grid grid-cols-12 gap-5">
         <div className="col-span-8">
-          <AdminDashChart/>
+          <AdminDashChart />
         </div>
         <div className="col-span-4">
-          <AdminTopProducts/>
+          <AdminTopProducts />
         </div>
-     </div>
+      </div> */}
     </div>
   );
 };

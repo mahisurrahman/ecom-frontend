@@ -17,7 +17,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 
 const Slider = () => {
   return (
-    <div className="border-b py-5 px-10 bg-fourth">
+    <div className="border-b py-6 px-10 bg-fourth">
       <>
         <Swiper
           slidesPerView={3}

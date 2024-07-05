@@ -20,7 +20,7 @@ const AdminDashLayout = () => {
           ></AdminNavbar>
           <div className="grid grid-cols-12">
             <div className="col-span-3">
-              <div className="ml-5 my-5 bg-white rounded-lg shadow-xl h-[85vh] mr-2">
+              <div className="ml-5 my-5 bg-white rounded-lg shadow-xl h-[85vh] overflow-y-scroll mr-2">
                 <AdminSidebar user={user} setUser={setUser}></AdminSidebar>
               </div>
             </div>
