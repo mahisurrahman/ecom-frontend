@@ -32,7 +32,7 @@ const AdminPendingOrders = () => {
   const handleConfirmOrder = async (id) => {
     try {
       setLoading(true);
-      await getRequest(`/orders/cancel/byid/${id}`);
+      await getRequest(`/orders/confirm/byid/${id}`);
       const updatedPndngOrds = await getRequest("/orders/src/pending/all");
 
       setAllOrders(updatedPndngOrds?.data?.data);
@@ -53,6 +53,7 @@ const AdminPendingOrders = () => {
         <PendingOrdersTable
           allOrders={allOrders}
           handleDeleteOrder={handleDeleteOrder}
+          handleConfirmOrder={handleConfirmOrder}
         />
       </div>
     </div>

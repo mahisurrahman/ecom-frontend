@@ -1,7 +1,11 @@
 import React from "react";
 import PendingOrdersItem from "../PendingOrdersItem/PendingOrdersItem";
 
-const PendingOrdersTable = ({ allOrders, handleDeleteOrder }) => {
+const PendingOrdersTable = ({
+  allOrders,
+  handleDeleteOrder,
+  handleConfirmOrder,
+}) => {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div className="flex flex-col">
@@ -49,6 +53,7 @@ const PendingOrdersTable = ({ allOrders, handleDeleteOrder }) => {
                       key={order._id}
                       order={order}
                       handleDeleteOrder={handleDeleteOrder}
+                      handleConfirmOrder={handleConfirmOrder}
                     />
                   ))}
                 </tbody>

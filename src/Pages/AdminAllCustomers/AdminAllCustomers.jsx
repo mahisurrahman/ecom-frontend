@@ -6,11 +6,24 @@ import useRequest from "../../ApiServices/useRequest";
 const AdminAllCustomers = () => {
   const [postRequest, getRequest] = useRequest();
   const [users, setUsers] = useState();
+  const [loading, setLoading] = useState(false);
 
   const getUsers = async () => {
     try {
-      const userDetails = await getRequest("/users/customer/src/all");
+      const userDetails = await getRequest("/users/customer/src");
       setUsers(userDetails?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteUser = async (id) => {
+    try {
+      setLoading(true);
+      await getRequest(`/users/del/${id}`);
+      const updatedUsers = getRequest(`/users/customer/src`);
+      setUsers(updatedUsers?.data?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +42,7 @@ const AdminAllCustomers = () => {
         {/* <CustomSearch/> */}
       </div>
       <div className="px-4 py-2">
-        <AllCustomerTable users={users} />
+        <AllCustomerTable users={users} handleDeleteUser={handleDeleteUser} />
       </div>
     </div>
   );

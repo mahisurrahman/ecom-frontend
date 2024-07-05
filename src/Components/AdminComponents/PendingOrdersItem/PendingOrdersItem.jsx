@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const PendingOrdersItem = ({ order, handleDeleteOrder }) => {
+const PendingOrdersItem = ({
+  order,
+  handleDeleteOrder,
+  handleConfirmOrder,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -42,6 +46,7 @@ const PendingOrdersItem = ({ order, handleDeleteOrder }) => {
           <button
             type="button"
             className="inline-flex items-center gap-x-2 text-xs font-semibold rounded text-green-600 px-2 py-1 mx-2 border-2 border-green-500 hover:text-white hover:bg-green-500"
+            onClick={() => handleConfirmOrder(order._id)}
           >
             Confirm
           </button>

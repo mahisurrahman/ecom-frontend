@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useRequest from "../../../ApiServices/useRequest";
 
-const SingleCustomerItem = ({ user }) => {
+const SingleCustomerItem = ({ user, handleDeleteUser }) => {
   const [postRequest, getRequest] = useRequest();
   const [userMoreDetails, setUserMoreDetails] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -69,6 +69,7 @@ const SingleCustomerItem = ({ user }) => {
         <button
           type="button"
           className="inline-flex items-center gap-x-2 px-2 py-1 border-4 border-red-400 text-xs font-bold rounded-lg text-red-600 hover:text-white hover:bg-red-400 hover:duration-700 "
+          onClick={() => handleDeleteUser(userMoreDetails._id)}
         >
           Delete
         </button>

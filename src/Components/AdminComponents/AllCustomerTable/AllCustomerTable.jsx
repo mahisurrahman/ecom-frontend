@@ -1,7 +1,7 @@
 import React from "react";
 import SingleCustomerItem from "../SingleCustomerItem/SingleCustomerItem";
 
-const AllCustomerTable = ({ users }) => {
+const AllCustomerTable = ({ users, handleDeleteUser }) => {
   return (
     <div className="mt-8 rounded-lg shadow-lg">
       <div className="flex flex-col">
@@ -64,7 +64,11 @@ const AllCustomerTable = ({ users }) => {
                 <tbody className="divide-y divide-gray-200">
                   {users &&
                     users.map((user) => (
-                      <SingleCustomerItem key={user._id} user={user} />
+                      <SingleCustomerItem
+                        key={user._id}
+                        user={user}
+                        handleDeleteUser={handleDeleteUser}
+                      />
                     ))}
                 </tbody>
               </table>
