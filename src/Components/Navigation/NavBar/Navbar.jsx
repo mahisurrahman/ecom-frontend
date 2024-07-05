@@ -208,34 +208,6 @@ const Navbar = () => {
                     Flash Sales
                   </NavLink>
                 </div>
-                {/* <div>
-                  <NavLink
-                    to="/tandc"
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? "pending"
-                        : isActive
-                        ? "font-bold"
-                        : "hover:text-white text-[16px] font-normal"
-                    }
-                  >
-                    Terms & Conditions
-                  </NavLink>
-                </div>
-                <div>
-                  <NavLink
-                    to="/refundPolicy"
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? "pending"
-                        : isActive
-                        ? "font-bold"
-                        : "hover:text-white text-[16px] font-normal"
-                    }
-                  >
-                    Refund Policy
-                  </NavLink>
-                </div> */}
               </div>
             </div>
           )}
@@ -264,9 +236,9 @@ const Navbar = () => {
                 Join
               </button>
             </Link>
-            <button className="bg-fourth border-2 border-white px-6 py-2 rounded-lg uppercase tracking-widest text-sm flex items-center font-bold duration-700 hover:duration-700 text-white hover:bg-white hover:text-primary">
+            {/* <button className="bg-fourth border-2 border-white px-6 py-2 rounded-lg uppercase tracking-widest text-sm flex items-center font-bold duration-700 hover:duration-700 text-white hover:bg-white hover:text-primary">
               Become a Seller
-            </button>
+            </button> */}
           </div>
         )}
       </div>

@@ -4,19 +4,19 @@ import { CiSearch } from "react-icons/ci";
 
 const HeroSection = () => {
   return (
-    <div className="bgImage h-[94vh] flex items-center justify-center">
+    <div className="bgImage h-[40vh] flex items-center justify-center">
       <div className="w-full h-[94vh] bg-primary bg-opacity-60 flex flex-col items-center justify-center ">
         <div className="flex items-center justify-center ">
-          <h1 className="text-center text-white text-7xl  font-bold">
+          <h1 className="text-center text-white text-5xl  font-bold">
             Get Desired Items, <br />
             Right At Your Door-Steps !!!
           </h1>
         </div>
         <div className="my-4">
-          <p className="text-center text-md tracking-widest  text-fourth font-semibold">
+          {/* <p className="text-center text-md tracking-widest  text-fourth font-semibold">
             Remember, Window Shopping is Free for Everyone, so Don't Hesitate{" "}
             <br /> to Check Our Best Collections.
-          </p>
+          </p> */}
         </div>
         <div className="w-full flex justify-center items-center mt-5">
           <input

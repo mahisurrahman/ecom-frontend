@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import useRequest from "../../../ApiServices/useRequest";
 import Swal from "sweetalert2";
 
-const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts }) => {
+const OrderItem = ({
+  item,
+  user,
+  customerDetails,
+  loading,
+  allCarts,
+  setAllCarts,
+}) => {
   const [isCODSelected, setIsCODSelected] = useState(false);
   const [postRequest, getRequest] = useRequest();
   const [individualStock, setIndividualStock] = useState(null);
@@ -52,7 +59,7 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
           `/carts/remove/byid/${orderDetails.cartId}`
         );
         //Remove Cart Items from the Cart State//
-        const filterCart = allCarts.filter (
+        const filterCart = allCarts.filter(
           (ct) => ct._id !== orderDetails.cartId
         );
         setAllCarts(filterCart);
@@ -60,7 +67,7 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
         //Remove Cart Item using API//
         if (removeCartItem) {
           Swal.fire(`Placed order of ${item.productName}`);
-          navigate('/user/dash/orders');
+          navigate("/user/dash/orders");
         }
       }
       setButtonLoading(false);
@@ -68,6 +75,30 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
       console.log(error);
       setButtonLoading(false);
     }
+  };
+
+  const handleBkashPayment = (item) => {
+    const orderDetails = {
+      cartId: item._id,
+      userId: user._id,
+      productId: item.productId,
+      userName: user.userName,
+      userFullName: user.userFullName,
+      userPhoneNumber: user.phoneNumber,
+      userEmail: user.userEmail,
+      userCountry: customerDetails.shippingCountry,
+      userState: customerDetails.shippingState,
+      userAddress: customerDetails.shippingAddress,
+      userPostalCode: customerDetails.shippingPostalCode,
+      productName: item.productName,
+      productThumb: item.productImage,
+      productSellingPrice: item.totalPrice,
+      allTotalPrice: item.totalPrice,
+      totalQuantity: item.quantity,
+      discount: 0,
+    };
+
+    navigate("/user/dash/payment", { state: orderDetails });
   };
 
   const handleCODClick = () => {
@@ -85,7 +116,7 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
           <p>{item.quantity}</p>
           <p>x {item.productName} </p>
         </div>
-        <p>$ {item.totalPrice}</p>
+        <p>৳ {item.totalPrice}</p>
       </div>
       <div className="my-2">
         <hr />
@@ -93,15 +124,15 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
       <div className="mt-10">
         <div className="flex justify-between gap-2 items-center text-xs">
           <p>Sub Total</p>
-          <p>$ {item.totalPrice}</p>
+          <p>৳ {item.totalPrice}</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Tax</p>
-          <p>$ 0.00</p>
+          <p>৳ 0.00</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Shipping</p>
-          <p>$ 0.00</p>
+          <p>৳ 0.00</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs mt-2">
           <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
@@ -116,7 +147,7 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
       <div className="mt-10">
         <div className="font-bold flex justify-between gap-2 items-center text-xl">
           <p>Total</p>
-          <p>$ {item.totalPrice}</p>
+          <p>৳ {item.totalPrice}</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Single Product Price </p>
@@ -138,16 +169,25 @@ const OrderItem = ({ item, user, customerDetails, loading, allCarts, setAllCarts
       </div>
       <div className="bg-white mt-10 text-left px-10 pt-10 pb-5 rounded-md shadow-lg">
         <p className="font-semibold">Choose Payment Method</p>
-        <button
-          className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${
-            isCODSelected
-              ? "border-fourth text-fourth"
-              : "border-ninth text-ninth"
-          }`}
-          onClick={handleCODClick}
-        >
-          Cash On <br /> Delivery
-        </button>
+        <div className="flex items-center gap-5">
+          <button
+            className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${
+              isCODSelected
+                ? "border-fourth text-fourth"
+                : "border-ninth text-ninth"
+            }`}
+            onClick={handleCODClick}
+          >
+            Cash On <br /> Delivery
+          </button>
+          <button
+            onClick={() => handleBkashPayment(item)}
+            className="mt-5 text-xs px-4 py-2 border-4 rounded-md font-semibold border-pink-300 text-pink-300"
+          >
+            Pay on
+            <br /> Bkash
+          </button>
+        </div>
         <p className="mt-10 text-xs text-center">
           Please Pay After Getting Your Goods
         </p>

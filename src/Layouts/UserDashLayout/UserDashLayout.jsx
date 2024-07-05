@@ -10,15 +10,15 @@ const UserDashLayout = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="text-primary  bg-sixth">
+    <div className="text-primary bg-sixth">
       {user.userType === 2 ? (
         <>
           <Navbar></Navbar>
-          <div className="grid grid-cols-12 py-5">
+          <div className="grid grid-cols-12 py-7">
             <div className="col-span-3">
               <UserDashNav></UserDashNav>
             </div>
-            <div className="col-span-9 py-5 pl-5 pr-10">
+            <div className="col-span-9 pl-5 pr-10 h-[80vh]">
               <Outlet></Outlet>
             </div>
           </div>

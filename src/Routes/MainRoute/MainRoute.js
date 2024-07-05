@@ -33,6 +33,7 @@ import AdminAllCustomers from "../../Pages/AdminAllCustomers/AdminAllCustomers";
 import AdminOffers from "../../Pages/AdminOffers/AdminOffers";
 import AdminReviews from "../../Pages/AdminReviews/AdminReviews";
 import AdminCreateProduct from "../../Pages/AdminCreateProduct/AdminCreateProduct";
+import BkashPaymentPage from "../../Pages/BkashPaymentPage/BkashPaymentPage";
 
 const router = createBrowserRouter([
   {
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserPrivateRoute>
-              <UserProfile/>
+              <UserProfile />
             </UserPrivateRoute>
           </PrivateRoute>
         ),
@@ -129,6 +130,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <UserPrivateRoute>
               <UserCart></UserCart>
+            </UserPrivateRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/user/dash/payment",
+        element: (
+          <PrivateRoute>
+            <UserPrivateRoute>
+              <BkashPaymentPage />
             </UserPrivateRoute>
           </PrivateRoute>
         ),
@@ -190,7 +201,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminCreateProduct/>
+              <AdminCreateProduct />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -200,7 +211,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminAllCategories/>
+              <AdminAllCategories />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -210,7 +221,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminPendingOrders/>
+              <AdminPendingOrders />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -220,7 +231,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminConfirmedOrders/>
+              <AdminConfirmedOrders />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -230,7 +241,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminDeletedOrders/>
+              <AdminDeletedOrders />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -240,7 +251,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminAllCustomers/>
+              <AdminAllCustomers />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -250,7 +261,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AllAdmins/>
+              <AllAdmins />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -260,7 +271,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminFlashSales/>
+              <AdminFlashSales />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -270,7 +281,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminOffers/>
+              <AdminOffers />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
@@ -280,7 +291,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminPrivateRoute>
-              <AdminReviews/>
+              <AdminReviews />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),

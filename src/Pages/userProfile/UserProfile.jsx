@@ -18,11 +18,15 @@ const UserProfile = () => {
   }
 
   if (!user) {
-    return <div className="bg-fourth w-full h-[85vh] flex justify-center items-center text-3xl font-semibold">User not found</div>;
+    return (
+      <div className="bg-fourth w-full h-[80vh] flex justify-center items-center text-3xl font-semibold">
+        User not found
+      </div>
+    );
   }
 
   return (
-    <div className="w-full rounded-lg h-[98vh] overflow-y-scroll">
+    <div className="w-full rounded-lg h-[80vh] overflow-y-scroll">
       <div className="flex items-center justify-between w-full bg-white">
         <DefaultUserData user={user} />
         <UserImageProf user={user}></UserImageProf>

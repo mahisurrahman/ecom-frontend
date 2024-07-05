@@ -8,7 +8,7 @@ import { FcApproval } from "react-icons/fc";
 import { AiFillDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserCartItems = ({ item }) => {
   const {
@@ -22,7 +22,6 @@ const UserCartItems = ({ item }) => {
   const [, getRequest] = useRequest();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleQtyDec = (item) => {
     try {
@@ -42,10 +41,9 @@ const UserCartItems = ({ item }) => {
     }
   };
 
-  const handleCheckout = (item)=>{
-    navigate('/checkout', { state: { item } });
-  }
-
+  const handleCheckout = (item) => {
+    navigate("/checkout", { state: { item } });
+  };
 
   const handleCartItemRemove = async (item) => {
     try {
@@ -63,9 +61,7 @@ const UserCartItems = ({ item }) => {
       setAllStocks(stck);
 
       setLoading(true);
-      const filterCart = allCarts.filter(
-        (ct) => ct._id !== item._id
-      );
+      const filterCart = allCarts.filter((ct) => ct._id !== item._id);
 
       setAllCarts(filterCart);
 
@@ -107,12 +103,16 @@ const UserCartItems = ({ item }) => {
       <div className="flex flex-col items-end">
         <div className="mb-5">
           <p className="text-xl ml-5 font-bold">
-            Total Price: <span className="font-normal">{item.totalPrice}$</span>
+            Total Price:{" "}
+            <span className="font-normal">{item.totalPrice}৳ </span>
           </p>
         </div>
         <div className="flex">
           <div className="border-e-2 pr-5 font-bold">
-            <FcApproval onClick={()=>handleCheckout(item)} className="text-4xl hover:cursor-pointer hover:scale-125"></FcApproval>
+            <FcApproval
+              onClick={() => handleCheckout(item)}
+              className="text-4xl hover:cursor-pointer hover:scale-125"
+            ></FcApproval>
           </div>
           <div className="pl-5">
             {loading ? (

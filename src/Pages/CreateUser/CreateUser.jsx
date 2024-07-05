@@ -16,7 +16,7 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("2");
   const [gender, setGender] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
@@ -68,7 +68,7 @@ const CreateUser = () => {
   return (
     <div className="bgImage w-[100vw] h-[100vh]">
       {loading ? (
-        <Loading></Loading>
+        <Loading />
       ) : (
         <div className="bg-primary bg-opacity-40 h-[100vh] w-full grid grid-cols-2 items-center overflow-y-hidden">
           <div className="pl-10">
@@ -105,19 +105,7 @@ const CreateUser = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mt-5 w-full">
-                <div className="flex flex-col">
-                  <label className="text-white" htmlFor="userType">
-                    User Type
-                  </label>
-                  <select
-                    onChange={(e) => setUserType(e.target.value)}
-                    className="px-[1vw] py-[1vh] rounded-md bg-white text-left"
-                  >
-                    <option value="1">1 (Seller)</option>
-                    <option value="2">2 (User)</option>
-                  </select>
-                </div>
+              <div className="mt-5 w-full">
                 <div>
                   <label className="text-white" htmlFor="phoneNumber">
                     Phone Number
@@ -162,7 +150,7 @@ const CreateUser = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-2 mt-5">
+              <div className="grid grid-cols-4 gap-2 mt-5 w-full">
                 <div>
                   <label className="text-white" htmlFor="country">
                     Country
@@ -219,14 +207,14 @@ const CreateUser = () => {
 
               <div className="grid grid-cols-2 gap-4 mt-5">
                 <div>
-                  <div className="flex gap-2 items-center mt-10">
+                  <div className="flex gap-2 items-center mt-5">
                     <div className="flex items-center justify-center">
                       <label htmlFor="userImage" className="text-white">
-                        User Image:{" "}
+                        Image:{" "}
                       </label>
                       <input
                         id="image"
-                        className="w-[100%] text-lg text-white"
+                        className=" px-5 w-[100%] text-lg text-white"
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
@@ -245,17 +233,21 @@ const CreateUser = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-white" htmlFor="gender">
+                  <label className="mt-5 text-white" htmlFor="gender">
                     Gender
                   </label>
-                  <input
+                  <select
                     onChange={(e) => setGender(e.target.value)}
-                    type="text"
                     name="gender"
-                    placeholder="Gender"
                     className="text-lg focus:outline-none py-1 px-4 w-full rounded-md border-0 placeholder:text-sm"
                     id="gender"
-                  />
+                    value={gender}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                  </select>
                 </div>
               </div>
 
@@ -267,7 +259,9 @@ const CreateUser = () => {
               <div className="text-white flex items-center justify-between mt-5 w-full">
                 <p className="text-lg">Old User of Men's Shelf? </p>
                 <Link to="/login">
-                  <p className="font-bold tracking-widest duration-700 hover:duration-700 hover:text-seventh hover:cursor-pointer">Login With Creds</p>
+                  <p className="font-bold tracking-widest duration-700 hover:duration-700 hover:text-seventh hover:cursor-pointer">
+                    Login With Creds
+                  </p>
                 </Link>
               </div>
             </form>

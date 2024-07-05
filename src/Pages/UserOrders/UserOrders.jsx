@@ -21,13 +21,22 @@ const UserOrders = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full grid grid-cols-12 gap-5">
-          <div className="col-span-4 bg-white py-10 rounded-lg">
-            <h1 className="text-xl font-bold mb-2 mx-5">My Orders</h1>
-            <div className="px-5 h-[100vh] overflow-y-scroll custom-scrollbar ">
+        <div className="w-full grid grid-cols-12 gap-5 h-[79vh]">
+          <div className="col-span-4 bg-white py-10 rounded-lg h-[76vh] overflow-y-scroll custom-scrollbar ">
+            <h1 className="text-xl font-bold mb-2 mx-5">
+              {userOrders && userOrders.length <= 0 ? (
+                <p>No Orders</p>
+              ) : (
+                <p>My Orders</p>
+              )}
+            </h1>
+            <div className="px-5 ">
               {userOrders ? (
                 userOrders.map((uOrder, index) => (
-                  <div key={index} onClick={()=>handleIndividualOrder(uOrder)}>
+                  <div
+                    key={index}
+                    onClick={() => handleIndividualOrder(uOrder)}
+                  >
                     <CurrentOrders uOrder={uOrder} index={index} />
                   </div>
                 ))
@@ -36,11 +45,17 @@ const UserOrders = () => {
               )}
             </div>
           </div>
-          <div className="col-span-8 bg-white rounded-lg">
-          {selectedOrder ? (
+          <div className="col-span-8 bg-white rounded-lg h-[77vh] ">
+            {selectedOrder ? (
               <CurrentOrderDetails selectedOrder={selectedOrder} />
             ) : (
-              <div className="text-center py-10"><p>Click an order to view details</p></div>
+              <div className="text-center py-10">
+                {userOrders && userOrders.length <= 0 ? (
+                  <p>Currently You Have No Orders</p>
+                ) : (
+                  <p>Click an order to view details</p>
+                )}
+              </div>
             )}
           </div>
         </div>

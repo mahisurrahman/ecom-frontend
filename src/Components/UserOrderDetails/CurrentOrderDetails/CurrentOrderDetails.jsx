@@ -1,4 +1,3 @@
-
 import UserOrderTotal from "../UserOrderTotal/UserOrderTotal";
 import UserOrderShippingAddress from "../UserOrderShippingAddress/UserOrderShippingAddress";
 import UserOrderedItems from "../UserOrderedItems/UserOrderedItems";
@@ -6,56 +5,61 @@ import { useEffect, useState } from "react";
 import useRequest from "../../../ApiServices/useRequest";
 import Swal from "sweetalert2";
 
-const CurrentOrderDetails = ({selectedOrder}) => {
+const CurrentOrderDetails = ({ selectedOrder }) => {
   const [currentState, setCurrentState] = useState(null);
   const [postRequest, getRequest] = useRequest();
 
-  const orderStateHandle = async()=>{
-    try{
-      if(selectedOrder.isCancelled === true){
-        setCurrentState('Cancelled');
-      }else if (selectedOrder.isDelievered === true){
-        setCurrentState('Delivered');
-      }else if(selectedOrder.isPending === true){
-        setCurrentState('Processing');
-      }else{
-        setCurrentState('Deleted');
+  const orderStateHandle = async () => {
+    try {
+      if (selectedOrder.isCancelled === true) {
+        setCurrentState("Cancelled");
+      } else if (selectedOrder.isDelievered === true) {
+        setCurrentState("Delivered");
+      } else if (selectedOrder.isPending === true) {
+        setCurrentState("Processing");
+      } else {
+        setCurrentState("Deleted");
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const handleOrderDelete = async (id) =>{
-    try{
+  const handleOrderDelete = async (id) => {
+    try {
       const orderId = id;
       const removeOrder = await getRequest(`/orders/del/byId/${orderId}`);
-      if(removeOrder?.data?.error === false){
+      if (removeOrder?.data?.error === false) {
         Swal.fire("Successfully Removed the Order");
-      }else{
+      } else {
         Swal.fire("Failed to Remove the Order");
         console.log(removeOrder);
       }
 
       return window.location.reload();
-
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     orderStateHandle();
-  },[currentState])
+  }, [currentState]);
 
   return (
     <div>
       <div className="px-10 py-10 flex items-center justify-between">
         <h1 className="font-bold">
-          Order Details - <span className="font-normal">{selectedOrder._id}</span>
+          Order Details -{" "}
+          <span className="font-normal">{selectedOrder._id}</span>
         </h1>
         <div className="flex items-center gap-1 text-seventh font-semibold text-sm">
-          <button onClick={()=> handleOrderDelete(selectedOrder._id)} className="px-4 py-1 font-bold rounded-full bg-red-700 text-white duration-700 hover:cursor-pointer hover:duration-700 hover:bg-red-400">Refund</button>
+          <button
+            onClick={() => handleOrderDelete(selectedOrder._id)}
+            className="px-4 py-1 font-bold rounded-full bg-red-700 text-white duration-700 hover:cursor-pointer hover:duration-700 hover:bg-red-400"
+          >
+            Refund
+          </button>
         </div>
       </div>
       <div className="mt-2 px-5 mx-10 flex item-center justify-between py-4 rounded-lg bg-eight">
@@ -73,11 +77,13 @@ const CurrentOrderDetails = ({selectedOrder}) => {
         </div>
       </div>
       <div className="mt-10 px-10 grid grid-cols-12">
-        <UserOrderShippingAddress selectedOrder={selectedOrder}></UserOrderShippingAddress>
+        <UserOrderShippingAddress
+          selectedOrder={selectedOrder}
+        ></UserOrderShippingAddress>
         <UserOrderTotal selectedOrder={selectedOrder}></UserOrderTotal>
       </div>
       <div className="mt-5 px-10">
-      <UserOrderedItems selectedOrder={selectedOrder}></UserOrderedItems>
+        <UserOrderedItems selectedOrder={selectedOrder}></UserOrderedItems>
       </div>
     </div>
   );
