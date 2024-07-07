@@ -21,7 +21,7 @@ const UserOrders = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full grid grid-cols-12 gap-5 h-[79vh]">
+        <div className="w-full grid grid-cols-12 gap-5 h-[70vh]">
           <div className="col-span-4 bg-white py-10 rounded-lg h-[76vh] overflow-y-scroll custom-scrollbar ">
             <h1 className="text-xl font-bold mb-2 mx-5">
               {userOrders && userOrders.length <= 0 ? (

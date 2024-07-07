@@ -124,8 +124,6 @@
 
 // export default UserCart;
 
-
-
 import React, { useContext, useEffect, useState } from "react";
 import UserCartItems from "../../Components/UserCartItem/UserCartItems";
 import { AuthContext } from "../../Providers/AuthProviders";
@@ -209,10 +207,12 @@ const UserCart = () => {
         await handlePlaceOrder(item);
         totalSum += item.totalPrice;
       }
-      Swal.fire(`All items have been ordered successfully! Total: $${totalSum}`);
+      Swal.fire(
+        `All items have been ordered successfully! Total: $${totalSum}`
+      );
       setAllCarts([]);
       localStorage.removeItem("cartItems"); // Assuming "cartItems" is the key for storing cart items in local storage
-      navigate("/user/dash/orders");
+      navigate("/");
       setButtonLoading(false);
     } catch (error) {
       console.log(error);

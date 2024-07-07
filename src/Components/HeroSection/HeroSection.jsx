@@ -18,7 +18,7 @@ const HeroSection = () => {
             <br /> to Check Our Best Collections.
           </p> */}
         </div>
-        <div className="w-full flex justify-center items-center mt-5">
+        {/* <div className="w-full flex justify-center items-center mt-5">
           <input
             className="w-5/12 text-xl py-4 px-5 rounded-s-md placeholder:text-sm focus:outline-none"
             type="text"
@@ -34,7 +34,7 @@ const HeroSection = () => {
               value="Search"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
