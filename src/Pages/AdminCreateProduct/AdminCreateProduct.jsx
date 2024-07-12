@@ -27,13 +27,14 @@ const AdminCreateProduct = () => {
     }
   };
 
+  //Blank COmmit//
   const handleCreateProducts = async (event) => {
     event.preventDefault();
     try {
       setLoading(true);
       const formData = new FormData();
       formData.append("productName", prodName);
-      formData.append("productDescription", prodDescription); 
+      formData.append("productDescription", prodDescription);
       formData.append("productThumb", prodThumb);
       formData.append("buyingPrice", buyingPrice);
       formData.append("sellingPrice", sellingPrice);
@@ -47,9 +48,9 @@ const AdminCreateProduct = () => {
 
       setLoading(false);
       const postProduct = await postRequest("/products/crt", formData);
-      if(postProduct?.data?.error === false){
+      if (postProduct?.data?.error === false) {
         Swal.fire("Successfully Created Product");
-        
+
         navigate("/admin/panel");
       }
     } catch (error) {
@@ -97,7 +98,11 @@ const AdminCreateProduct = () => {
                   Select a category
                 </option>
                 {allCategories.map((category) => (
-                  <option key={category.categoryCode} className="uppercase" value={category.categoryCode}>
+                  <option
+                    key={category.categoryCode}
+                    className="uppercase"
+                    value={category.categoryCode}
+                  >
                     {category.categoryName}
                   </option>
                 ))}
