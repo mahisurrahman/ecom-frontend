@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useNavigate } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
+import useRequest from "../../ApiServices/useRequest";
+import Swal from "sweetalert2";
 
 const AdminCreateProduct = () => {
   const { allCategories, loading, setLoading } = useContext(AuthContext);
@@ -7,46 +9,52 @@ const AdminCreateProduct = () => {
   const [prodDescription, setProdDescription] = useState("");
   const [prodThumb, setProdThumb] = useState(null);
   const [prodThumbPreview, setProdThumbPreview] = useState(null);
-  const [prodImg, setProdImg] = useState([]);
-  const [prodImgPreview, setProdImgPreview] = useState(null);
   const [buyingPrice, setBuyingPrice] = useState(0);
   const [sellingPrice, setSellingPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState("");
+  const [stockQuantity, setStockQuantity] = useState(0);
+  const navigate = useNavigate();
+  const [postRequest, getRequest] = useRequest();
 
   const handleThumbChange = (e) => {
     setLoading(true);
     const selectedImage = e.target.files[0];
-    console.log("Imagesssss", selectedImage);
     if (selectedImage) {
       setProdThumbPreview(URL.createObjectURL(selectedImage));
-      console.log(selectedImage);
       setProdThumb(selectedImage);
       setLoading(false);
     }
   };
 
-  const handleCreateProducts = (event) => {
+  const handleCreateProducts = async (event) => {
+    event.preventDefault();
     try {
       setLoading(true);
-      event.preventDefault();
       const formData = new FormData();
       formData.append("productName", prodName);
-      formData.append("productDescription", prodDescription);
+      formData.append("productDescription", prodDescription); 
       formData.append("productThumb", prodThumb);
-      formData.append("productImg", prodImg);
       formData.append("buyingPrice", buyingPrice);
       formData.append("sellingPrice", sellingPrice);
       formData.append("discount", discount);
       formData.append("categoryId", categoryId);
+      formData.append("stockQuantity", stockQuantity);
 
-      const form = event.target;
-      const productName = form.productName.value;
-      const productCategory = form.productCategory.value;
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
 
-      console.log(productName, productCategory);
+      setLoading(false);
+      const postProduct = await postRequest("/products/crt", formData);
+      if(postProduct?.data?.error === false){
+        Swal.fire("Successfully Created Product");
+        
+        navigate("/admin/panel");
+      }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -71,6 +79,8 @@ const AdminCreateProduct = () => {
                 type="text"
                 name="productName"
                 placeholder="product name"
+                value={prodName}
+                onChange={(e) => setProdName(e.target.value)}
               />
             </div>
             <div className="flex flex-col items-start w-full">
@@ -80,8 +90,10 @@ const AdminCreateProduct = () => {
               <select
                 className="px-4 py-3 mt-2 border-2 w-full rounded-lg focus:outline-none"
                 name="categoryId"
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select a category
                 </option>
                 {allCategories.map((category) => (
@@ -102,6 +114,8 @@ const AdminCreateProduct = () => {
                 type="number"
                 name="buyingPrice"
                 placeholder="Buying Price"
+                value={buyingPrice}
+                onChange={(e) => setBuyingPrice(e.target.value)}
               />
             </div>
             <div className="flex flex-col items-start w-full">
@@ -113,34 +127,39 @@ const AdminCreateProduct = () => {
                 type="number"
                 name="sellingPrice"
                 placeholder="Selling Price"
+                value={sellingPrice}
+                onChange={(e) => setSellingPrice(e.target.value)}
               />
             </div>
             <div className="flex flex-col items-start w-full">
-              <label className="text-sm" htmlFor="sellingPrice">
-                SDiscount
+              <label className="text-sm" htmlFor="discount">
+                Stock Quantity
               </label>
               <input
                 className="px-4 py-2 mt-2 border-2 w-full border-gray-400 rounded-lg shadow-md focus:outline-none"
                 type="number"
-                name="discount"
-                placeholder="Discount"
+                name="stockQuantity"
+                placeholder="Stock Quantity"
+                // value={stockQuantity}
+                onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
           </div>
           <div className="flex items-start gap-5 w-full mt-5">
             <div className="flex flex-col items-start w-full">
-              <label className="text-sm" htmlFor="discount">
+              <label className="text-sm" htmlFor="productDescription">
                 Product Description
               </label>
               <textarea
                 className="px-4 py-2 h-[10vh] mt-2 border-2 w-full rounded-lg border-gray-400 shadow-md focus:outline-none"
-                type="text"
                 name="productDescription"
                 placeholder="Product Description"
+                value={prodDescription}
+                onChange={(e) => setProdDescription(e.target.value)}
               />
             </div>
           </div>
-          <div className="flex justify-end items-center gap-5 w-full mt-10">
+          <div className="flex justify-start items-center gap-5 w-full mt-10">
             <div className="flex flex-col items-start">
               <label className="text-xs mb-3" htmlFor="productThumb">
                 Thumbnail Upload
@@ -152,43 +171,6 @@ const AdminCreateProduct = () => {
                 accept="image/*"
                 onChange={handleThumbChange}
                 required
-              />
-            </div>
-            <div className="flex flex-col items-start">
-              <label className="text-xs mb-3" htmlFor="productImg1">
-                Image 01 (Required)
-              </label>
-              <input
-                id="productImg1"
-                className="w-full text-lg text-black"
-                type="file"
-                accept="image/*"
-                onChange={handleThumbChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col items-start">
-              <label className="text-xs mb-3" htmlFor="productImg2">
-                Image 02 (Optional)
-              </label>
-              <input
-                id="productImg2"
-                className="w-full text-lg text-black"
-                type="file"
-                accept="image/*"
-                onChange={handleThumbChange}
-              />
-            </div>
-            <div className="flex flex-col items-start">
-              <label className="text-xs mb-3" htmlFor="productImg3">
-                Image 03 (Optional)
-              </label>
-              <input
-                id="productImg3"
-                className="w-full text-lg text-black"
-                type="file"
-                accept="image/*"
-                onChange={handleThumbChange}
               />
             </div>
           </div>
