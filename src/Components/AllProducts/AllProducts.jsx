@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CategorySideBar from "../CategorySidebar/CategorySideBar";
 import { AuthContext } from "../../Providers/AuthProviders";
 import useRequest from "../../ApiServices/useRequest";
@@ -10,20 +10,32 @@ const AllProducts = () => {
   const {
     user,
     allCategories,
-    allProducts,
     allStocks,
     setAllCarts,
     allCarts,
     setAllStocks,
     loading,
   } = useContext(AuthContext);
-
-  const [postRequest] = useRequest();
+  const [showProds, setShowProds] = useState([]);
+  const [postRequest, getRequest] = useRequest();
   const navigate = useNavigate();
+
+  const getProducts = async () => {
+    try {
+      const allProdss = await getRequest("/products/src");
+      setShowProds(allProdss?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const getStock = (productId) => {
     try {
-      const stock = allStocks.find(
+      const stock = showProds.find(
         (stockItem) => stockItem.productId === productId
       );
       return stock ? stock.stockQTY : "Out of Stock";
@@ -96,9 +108,21 @@ const AllProducts = () => {
         } else {
           Swal.fire("Invalid Quantity");
         }
-      }else{
-        navigate('/login');
+      } else {
+        navigate("/login");
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCategoryClick = async (category) => {
+    try {
+      const getCategoriseProds = await getRequest(
+        `/products/src/category/${category._id}`
+      );
+
+      setShowProds(getCategoriseProds?.data?.data);
     } catch (error) {
       console.log(error);
     }
@@ -111,54 +135,69 @@ const AllProducts = () => {
       ) : (
         <div className="grid grid-cols-12">
           <div className="col-span-2">
-            <CategorySideBar allCategories={allCategories}></CategorySideBar>
+            <CategorySideBar
+              allCategories={allCategories}
+              handleCategoryClick={handleCategoryClick}
+            ></CategorySideBar>
           </div>
           <div className="col-span-10 px-10 py-12 bg-fifth">
             <div className="grid grid-cols-4 gap-4">
-              {allProducts.map((item) => (
-                <div
-                  className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl"
-                  key={item._id}
-                >
-                  <div className="flex items-center justify-center h-[50%] mt-8 px-2">
-                    <img
-                      className="w-[24vh] overflow-hidden rounded-lg"
-                      src={`http://localhost:8000/images/${item.productThumb}`}
-                      alt=""
-                    />
+              {showProds ? (
+                showProds.map((item) => (
+                  <div
+                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl"
+                    key={item._id}
+                  >
+                    <div className="flex items-center justify-center h-[50%] mt-8 px-2">
+                      <img
+                        className="w-[24vh] overflow-hidden rounded-lg"
+                        src={`http://localhost:8000/images/${item.productThumb}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="px-[1.5vw] mt-[2.5vh]">
+                      <p className=" font-bold text-[20px]">
+                        {item.productName}
+                      </p>
+                      <p className="font-bold text-sm mt-[2vh]">
+                        Stock Remaining:{" "}
+                        <span className="font-normal">
+                          {getStock(item._id)}
+                        </span>
+                      </p>
+                      <p className="font-bold text-sm">
+                        Discount:{" "}
+                        <span className="font-normal">{item.discount} %</span>
+                      </p>
+                    </div>
+                    <div className="mt-[2vh] px-[1.5vw] flex justify-between items-center gap-2">
+                      <p className="font-extrabold text-lg text-seventh">
+                        Price:{" "}
+                        <span className="text-xl font-extrabold text-primary">
+                          {item.sellingPrice} Tk
+                        </span>
+                      </p>
+                      <button
+                        onClick={() => handleCart(item)}
+                        className={`text-xs bg-fourth px-4 py-2 text-white tracking-wide font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
+                          getStock(item._id) === 0
+                            ? "text-sixth hover:text-sixth hover:cursor-default"
+                            : ""
+                        }`}
+                        disabled={getStock(item._id) === 0}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                  <div className="px-[1.5vw] mt-[2.5vh]">
-                    <p className=" font-bold text-[20px]">{item.productName}</p>
-                    <p className="font-bold text-sm mt-[2vh]">
-                      Stock Remaining:{" "}
-                      <span className="font-normal">{getStock(item._id)}</span>
-                    </p>
-                    <p className="font-bold text-sm">
-                      Discount:{" "}
-                      <span className="font-normal">{item.discount} %</span>
-                    </p>
-                  </div>
-                  <div className="mt-[2vh] px-[1.5vw] flex justify-between items-center gap-2">
-                    <p className="font-extrabold text-lg text-seventh">
-                      Price:{" "}
-                      <span className="text-xl font-extrabold text-primary">
-                        {item.sellingPrice} Tk
-                      </span>
-                    </p>
-                    <button
-                      onClick={() => handleCart(item)}
-                      className={`text-xs bg-fourth px-4 py-2 text-white tracking-wide font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
-                        getStock(item._id) === 0
-                          ? "text-sixth hover:text-sixth hover:cursor-default"
-                          : ""
-                      }`}
-                      disabled={getStock(item._id) === 0}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
+                ))
+              ) : (
+                <div className="w-full bg-red-500">
+                  <p className="text-center text-4xl font-bold">
+                    No products available in this Category
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>

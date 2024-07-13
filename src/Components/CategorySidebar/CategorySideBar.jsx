@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
-const CategorySideBar = ({ allCategories }) => {
+const CategorySideBar = ({ allCategories, handleCategoryClick }) => {
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
@@ -11,6 +11,7 @@ const CategorySideBar = ({ allCategories }) => {
       <div className="text-white font-bold">
         {allCategories.map((category) => (
           <div
+            onClick={() => handleCategoryClick(category)}
             key={category._id}
             className="pl-10 text-left py-4 flex items-center gap-4"
           >

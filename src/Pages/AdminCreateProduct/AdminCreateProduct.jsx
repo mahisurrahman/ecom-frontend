@@ -1,4 +1,6 @@
-import React, { useContext, useState, useNavigate } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "../../Providers/AuthProviders";
 import useRequest from "../../ApiServices/useRequest";
 import Swal from "sweetalert2";
@@ -101,7 +103,7 @@ const AdminCreateProduct = () => {
                   <option
                     key={category.categoryCode}
                     className="uppercase"
-                    value={category.categoryCode}
+                    value={category._id}
                   >
                     {category.categoryName}
                   </option>
