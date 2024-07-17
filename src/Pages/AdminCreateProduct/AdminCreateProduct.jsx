@@ -148,7 +148,7 @@ const AdminCreateProduct = () => {
                 name="stockQuantity"
                 placeholder="Stock Quantity"
                 // value={stockQuantity}
-                onChange={(e) => setDiscount(e.target.value)}
+                onChange={(e) => setStockQuantity(e.target.value)}
               />
             </div>
           </div>

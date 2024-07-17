@@ -10,6 +10,7 @@ const AllProducts = () => {
   const {
     user,
     allCategories,
+    allProducts,
     allStocks,
     setAllCarts,
     allCarts,
@@ -35,8 +36,8 @@ const AllProducts = () => {
 
   const getStock = (productId) => {
     try {
-      const stock = showProds.find(
-        (stockItem) => stockItem.productId === productId
+      const stock = allStocks.find(
+        (stockItem) => stockItem?.productId === productId
       );
       return stock ? stock.stockQTY : "Out of Stock";
     } catch (error) {
@@ -192,7 +193,7 @@ const AllProducts = () => {
                   </div>
                 ))
               ) : (
-                <div className="w-full bg-red-500">
+                <div className="w-full">
                   <p className="text-center text-4xl font-bold">
                     No products available in this Category
                   </p>

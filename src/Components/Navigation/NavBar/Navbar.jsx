@@ -15,7 +15,6 @@ const Navbar = () => {
 
   const dropdownRef = useRef(null);
   const userDropdownRef = useRef(null);
-
   const getUser = () => {
     try {
       let userDetails = JSON.parse(localStorage.getItem("userCreds"));
@@ -216,7 +215,7 @@ const Navbar = () => {
           <div className="relative flex items-center">
             <div onMouseEnter={handleMouseEnterUserDropdown}>
               <img
-                src={`http://localhost:8000/images/${user.userImg}`}
+                src={`http://localhost:8000/images/${user?.userImg}`}
                 className="border-2 border-fifth w-10 h-10 object-cover rounded-full ml-5"
                 alt=""
               />

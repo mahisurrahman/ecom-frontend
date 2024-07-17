@@ -134,17 +134,22 @@ import { useNavigate } from "react-router-dom";
 const UserCart = () => {
   const { allCarts, user, setAllCarts } = useContext(AuthContext);
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [, getRequest] = useRequest();
-  const [, postRequest] = useRequest();
+  const [postRequest, getRequest] = useRequest();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
 
   const getUserCartItems = async () => {
     try {
-      // Fetch user cart items logic here
+      const allItems = await getRequest(`/carts/src/byuser/${user._id}`);
+      setCartItems(allItems?.data?.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getUserCartItems();
+  }, []);
 
   const handlePlaceOrder = async (item) => {
     try {
@@ -201,28 +206,64 @@ const UserCart = () => {
 
   const handleOrderAll = async () => {
     try {
-      setButtonLoading(true);
-      let totalSum = 0;
-      for (const item of allCarts) {
-        await handlePlaceOrder(item);
-        totalSum += item.totalPrice;
+      if (cartItems) {
+        for (const item of cartItems) {
+          let customerDetails = await getRequest(
+            `/users/customer/src/byId/${user._id}`
+          );
+          const orderDetails = {
+            cartId: item._id,
+            userId: user._id,
+            productId: item.productId,
+            userName: user.userName,
+            userFullName: user.userFullName,
+            userPhoneNumber: user.phoneNumber,
+            userEmail: user.userEmail,
+            userCountry: customerDetails?.shippingCountry,
+            userState: customerDetails?.shippingState,
+            userAddress: customerDetails?.shippingAddress,
+            userPostalCode: customerDetails?.shippingPostalCode,
+            productName: item.productName,
+            productThumb: item.productImage,
+            productSellingPrice: item.totalPrice,
+            allTotalPrice: item.totalPrice,
+            totalQuantity: item.quantity,
+            discount: 0,
+          };
+          await postRequest("/orders/crt", orderDetails);
+        }
       }
-      Swal.fire(
-        `All items have been ordered successfully! Total: $${totalSum}`
-      );
-      setAllCarts([]);
-      localStorage.removeItem("cartItems"); // Assuming "cartItems" is the key for storing cart items in local storage
+      Swal.fire("Ordered All Products");
       navigate("/");
-      setButtonLoading(false);
     } catch (error) {
       console.log(error);
-      setButtonLoading(false);
     }
   };
 
-  useEffect(() => {
-    getUserCartItems();
-  }, [AuthContext, user, allCarts]);
+  // const handleOrderAll = async () => {
+  //   try {
+  //     setButtonLoading(true);
+  //     let totalSum = 0;
+  //     for (const item of allCarts) {
+  //       await handlePlaceOrder(item);
+  //       totalSum += item.totalPrice;
+  //     }
+  //     Swal.fire(
+  //       `All items have been ordered successfully! Total: $${totalSum}`
+  //     );
+  //     setAllCarts([]);
+  //     localStorage.removeItem("cartItems"); // Assuming "cartItems" is the key for storing cart items in local storage
+  //     navigate("/");
+  //     setButtonLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setButtonLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUserCartItems();
+  // }, [AuthContext, user, allCarts]);
 
   return (
     <div className="px-10 py-10 bg-white rounded-md h-[80vh]">
@@ -231,9 +272,15 @@ const UserCart = () => {
       </div>
       <div className="mt-10">
         {allCarts.length > 0 ? (
-          allCarts.map((item) => <UserCartItems item={item} key={item._id} />)
+          allCarts.map((item) => (
+            <UserCartItems
+              item={item}
+              key={item._id}
+              handlePlaceOrder={handlePlaceOrder}
+            />
+          ))
         ) : (
-          <div className="h-[90vh] bg-white">
+          <div className="">
             <p>No Item Present In Your Cart</p>
           </div>
         )}
