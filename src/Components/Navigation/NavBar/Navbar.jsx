@@ -221,12 +221,14 @@ const Navbar = () => {
               />
               {userDropdownVisible && renderUserDropdown()}
             </div>
-            <Link to="/user/dash/cart" className="ml-5">
+            {
+              user?.userType === 2 ? <Link to="/user/dash/cart" className="ml-5">
               <div className="flex items-center gap-2">
                 <FaShoppingCart size={24} />
                 <p className="text-xl font-bold">{allCarts.length}</p>
               </div>
-            </Link>
+            </Link> : <></>
+            }
           </div>
         ) : (
           <div className="pl-5 flex items-center gap-5">

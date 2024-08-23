@@ -17,6 +17,7 @@ const AllProducts = () => {
     setAllStocks,
     loading,
   } = useContext(AuthContext);
+  console.log("user", user);
   const [showProds, setShowProds] = useState([]);
   const [postRequest, getRequest] = useRequest();
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ const AllProducts = () => {
                         alt=""
                       />
                     </div>
-                    <div className="px-[1.5vw] mt-[2.5vh]">
+                    <div className="px-[1.5vw] mt-[3.5vh]">
                       <p className=" font-bold text-[20px]">
                         {item.productName}
                       </p>
@@ -171,14 +172,16 @@ const AllProducts = () => {
                         <span className="font-normal">{item.discount} %</span>
                       </p>
                     </div>
-                    <div className="mt-[2vh] px-[1.5vw] flex justify-between items-center gap-2">
+                    {
+                      user?.userType === 2 ? 
+                      <div className="mt-[2vh] px-[1.5vw] flex justify-between items-center gap-2">
                       <p className="font-extrabold text-lg text-seventh">
                         Price:{" "}
                         <span className="text-xl font-extrabold text-primary">
                           {item.sellingPrice} Tk
                         </span>
                       </p>
-                      <button
+                        <button
                         onClick={() => handleCart(item)}
                         className={`text-xs bg-fourth px-4 py-2 text-white tracking-wide font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
                           getStock(item._id) === 0
@@ -189,7 +192,16 @@ const AllProducts = () => {
                       >
                         Add to Cart
                       </button>
-                    </div>
+                    </div> :
+                    <div className="mt-[2vh] px-[1.5vw] flex justify-end items-center gap-2">
+                    <p className="font-extrabold text-lg text-seventh">
+                      Price:{" "}
+                      <span className="text-xl font-extrabold text-primary">
+                        {item.sellingPrice} Tk
+                      </span>
+                    </p>
+                  </div>
+                    }
                   </div>
                 ))
               ) : (

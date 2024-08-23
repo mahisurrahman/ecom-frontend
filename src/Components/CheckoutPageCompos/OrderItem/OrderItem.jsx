@@ -55,9 +55,7 @@ const OrderItem = ({
 
       const createOrder = await postRequest("/orders/crt", orderDetails);
       if (createOrder) {
-        let removeCartItem = await getRequest(
-          `/carts/remove/byid/${orderDetails.cartId}`
-        );
+       
         //Remove Cart Items from the Cart State//
         const filterCart = allCarts.filter(
           (ct) => ct._id !== orderDetails.cartId
@@ -65,7 +63,7 @@ const OrderItem = ({
         setAllCarts(filterCart);
 
         //Remove Cart Item using API//
-        if (removeCartItem) {
+        if (filterCart) {
           Swal.fire(`Placed order of ${item.productName}`);
           navigate("/user/dash/orders");
         }
