@@ -17,6 +17,7 @@ const AllProducts = () => {
     setAllStocks,
     loading,
   } = useContext(AuthContext);
+
   console.log("user", user);
   const [showProds, setShowProds] = useState([]);
   const [postRequest, getRequest] = useRequest();
@@ -69,9 +70,10 @@ const AllProducts = () => {
           };
           const dummyCart = {
             userId: user._id,
+            customerName: user?.userFullName,
             productId: item._id,
-            productImage: item.productThumb,
-            productPrice: item.buyingPrice,
+            // productImage: item.productThumb,
+            // productPrice: item.buyingPrice,
             quantity: parseInt(quantity, 10),
           };
 
