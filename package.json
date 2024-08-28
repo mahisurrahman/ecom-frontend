@@ -24,8 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "set port=5000 && react-scripts start",
+    "build": "react-scripts build", 
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

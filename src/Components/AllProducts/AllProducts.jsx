@@ -147,12 +147,12 @@ const AllProducts = () => {
               {showProds ? (
                 showProds.map((item) => (
                   <div
-                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl"
+                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl hover:scale-110 hover:duration-700"
                     key={item._id}
                   >
                     <div className="flex items-center justify-center h-[50%] mt-8 px-2">
                       <img
-                        className="w-[24vh] overflow-hidden rounded-lg"
+                        className="w-[24vh] duration-700 overflow-hidden rounded-lg  hover:duration-700"
                         src={`http://localhost:8000/images/${item.productThumb}`}
                         alt=""
                       />
@@ -193,7 +193,7 @@ const AllProducts = () => {
                         Add to Cart
                       </button>
                     </div> :
-                    <div className="mt-[2vh] px-[1.5vw] flex justify-end items-center gap-2">
+                    <div className="mt-[2vh] px-[1.5vw] flex justify-start items-center gap-2">
                     <p className="font-extrabold text-lg text-seventh">
                       Price:{" "}
                       <span className="text-xl font-extrabold text-primary">
