@@ -193,7 +193,7 @@ const Navbar = () => {
                     FAQ
                   </NavLink>
                 </div>
-                <div>
+                {/* <div>
                   <NavLink
                     to="/flashsales"
                     className={({ isActive, isPending }) =>
@@ -206,7 +206,7 @@ const Navbar = () => {
                   >
                     Flash Sales
                   </NavLink>
-                </div>
+                </div> */}
               </div>
             </div>
           )}
@@ -221,25 +221,29 @@ const Navbar = () => {
               />
               {userDropdownVisible && renderUserDropdown()}
             </div>
-            {
-              user?.userType === 2 ? <Link to="/user/dash/cart" className="ml-5">
-              <div className="flex items-center gap-2">
-                <FaShoppingCart size={24} />
-                <p className="text-xl font-bold">{allCarts.length}</p>
-              </div>
-            </Link> : <></>
-            }
+            {user?.userType === 2 ? (
+              <Link to="/user/dash/cart" className="ml-5">
+                <div className="flex items-center gap-2">
+                  <FaShoppingCart size={24} />
+                  <p className="text-xl font-bold">{allCarts.length}</p>
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         ) : (
           <div className="pl-5 flex items-center gap-5">
             <Link to="/signup">
               <button className="bg-white text-primary px-6 py-2 rounded-lg uppercase tracking-widest text-sm flex items-center font-bold duration-700 hover:duration-700 hover:bg-sixth">
-                Join
+                Signup
               </button>
             </Link>
-            {/* <button className="bg-fourth border-2 border-white px-6 py-2 rounded-lg uppercase tracking-widest text-sm flex items-center font-bold duration-700 hover:duration-700 text-white hover:bg-white hover:text-primary">
-              Become a Seller
-            </button> */}
+            <Link to="/login">
+              <button className="bg-fourth border-2 border-white px-6 py-2 rounded-lg uppercase tracking-widest text-sm flex items-center font-bold duration-700 hover:duration-700 text-white hover:bg-white hover:text-primary">
+                Login
+              </button>
+            </Link>
           </div>
         )}
       </div>

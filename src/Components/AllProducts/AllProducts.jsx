@@ -147,7 +147,7 @@ const AllProducts = () => {
               {showProds ? (
                 showProds.map((item) => (
                   <div
-                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl"
+                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
                     key={item._id}
                   >
                     <div className="flex items-center justify-center h-[50%] mt-8 px-2">
