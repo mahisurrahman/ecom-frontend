@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <div className='h-[5vh] bg-primary flex justify-center items-center text-white'>
-            <h1 className='text-xs tracking-widest font-bold'>Copyright© TRAIDEAS, Men's Shelf 2024 !!!</h1>
+            <h1 className='text-xs tracking-widest font-bold'>Copyright© Mushfiqur, Men's Shelf 2024 !!!</h1>
         </div>
     );
 };

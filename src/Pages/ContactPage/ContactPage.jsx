@@ -22,12 +22,12 @@ const ContactPage = () => {
           </div>
           <div className="px-4 mt-10">
             <h1 className="font-extrabold text-xl">Email</h1>
-            <p className="mt-2 tracking-wide text-lg">traideas@gmail.com</p>
+            <p className="mt-2 tracking-wide text-lg">mushfiqur@gmail.com</p>
           </div>
           <div className="px-4 mt-10">
             <h1 className="font-extrabold text-xl">Website</h1>
             <div className="flex items-center justify-between mt-2">
-              <p className="tracking-wide text-lg">https://traideas.com/</p>
+              <p className="tracking-wide text-lg">https://mushfiqur.com/</p>
               <p className="text-fourth font-extrabold duration-700 hover:text-seventh hover:cursor-pointer hover:duration-700">
                 Visit Site
               </p>

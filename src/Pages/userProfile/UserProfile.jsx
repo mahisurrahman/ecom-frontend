@@ -9,6 +9,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import UserImageProf from "../../Components/UserProfile/UserImageProf/UserImageProf";
 import Loading from "../../Components/Loading/Loading";
 import ChangeFullName from "../../Components/UserProfile/ChangeFullName/ChangeFullName";
+import ChangePassword from "../../Components/UserProfile/ChangePassword/ChangePassword";
 
 const UserProfile = () => {
   const { user, loading } = useContext(AuthContext);
@@ -33,8 +34,8 @@ const UserProfile = () => {
       </div>
       <ChangeUserName />
       <ChangeEmail />
-      {/* <ChangePassword /> */}
-      <ChangeFullName></ChangeFullName>
+      <ChangePassword />
+      <ChangeFullName/>
       <ChangeNumber />
       <ChangeGender />
     </div>
