@@ -15,6 +15,7 @@ import {
   FaTags,
   FaStar,
 } from "react-icons/fa";
+import { MdDiscount } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const AdminSidebar = ({ user, setUser }) => {
@@ -55,6 +56,19 @@ const AdminSidebar = ({ user, setUser }) => {
       >
         <FaBoxOpen className="text-2xl  mr-4" />
         {`Inventory (All Products)`}
+      </NavLink>
+      <NavLink
+        to="/admin/panel/alldiscounts"
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-bold text-fourth px-4 py-4 flex items-center gap-2 border-b"
+            : "hover:text-fourth px-4 py-4 flex items-center gap-2"
+        }
+      >
+        <MdDiscount className="text-2xl  mr-4" />
+        {`All Discounts`}
       </NavLink>
       <NavLink
         to="/admin/panel/createproducts"

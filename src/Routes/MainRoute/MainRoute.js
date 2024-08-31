@@ -36,6 +36,7 @@ import AdminCreateProduct from "../../Pages/AdminCreateProduct/AdminCreateProduc
 import BkashPaymentPage from "../../Pages/BkashPaymentPage/BkashPaymentPage";
 import BkashPaymentPageTwo from "../../Pages/BkashPaymentPageTwo/BkashPaymentPageTwo";
 import BkashPaymentPageThree from "../../Pages/BkashPaymentPageThree/BkashPaymentPageThree";
+import AdminAllDiscounts from "../../Pages/AdminAllDiscounts.jsx/AdminAllDiscounts";
 
 const router = createBrowserRouter([
   {
@@ -194,6 +195,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminPrivateRoute>
               <AdminAllProducts />
+            </AdminPrivateRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/panel/alldiscounts",
+        element: (
+          <PrivateRoute>
+            <AdminPrivateRoute>
+              <AdminAllDiscounts />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
