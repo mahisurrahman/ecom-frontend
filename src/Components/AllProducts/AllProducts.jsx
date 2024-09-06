@@ -51,11 +51,87 @@ const AllProducts = () => {
   };
 
   const handleCart = async (item) => {
-    // Existing cart logic
+    try {
+      if (user && user._id) {
+        const { value: quantity } = await Swal.fire({
+          title: "Enter quantity",
+          input: "number",
+          inputAttributes: {
+            min: 1,
+            max: getStock(item._id),
+            step: 1,
+          },
+          inputValue: 1,
+          showCancelButton: true,
+        });
+
+        if (quantity > 0) {
+          const cartItems = {
+            userId: user._id,
+            productId: item._id,
+            quantity: parseInt(quantity, 10),
+          };
+          const dummyCart = {
+            userId: user._id,
+            productId: item._id,
+            productImage: item.productThumb,
+            productPrice: item.buyingPrice,
+            quantity: parseInt(quantity, 10),
+          };
+
+          Swal.fire("Added to Cart");
+
+          let matchFound = false;
+          let updatedCarts = await allCarts.map((d) => {
+            if (d.productId === item._id) {
+              matchFound = true;
+              return {
+                ...d,
+                quantity: parseInt(d.quantity) + parseInt(quantity),
+              };
+            }
+            return d;
+          });
+
+          if (!matchFound) {
+            updatedCarts = [...updatedCarts, dummyCart];
+          }
+
+          let stocksData = allStocks.map((dt) => {
+            if (dt.productId === item._id) {
+              return {
+                ...dt,
+                stockQTY: parseInt(dt.stockQTY) - parseInt(quantity),
+              };
+            }
+            return dt;
+          });
+
+          setAllStocks(stocksData);
+
+          setAllCarts(updatedCarts);
+          postRequest("/carts/crt", cartItems);
+        } else {
+          Swal.fire("Invalid Quantity");
+        }
+      }else{
+        navigate('/login');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCategoryClick = async (category) => {
-    // Existing category click logic
+    try {
+      const getCategoriseProds = await getRequest(
+        `/products/src/category/${category._id}`
+      );
+
+      setShowProds(getCategoriseProds?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Function to open modal with the selected product
@@ -80,23 +156,23 @@ const AllProducts = () => {
               handleCategoryClick={handleCategoryClick}
             />
           </div>
-          <div className="col-span-10 px-10 py-12 bg-fifth">
-            <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-10 px-8 py-8 bg-fifth">
+            <div className="grid grid-cols-4 gap-x-4">
               {showProds ? (
                 showProds.map((item) => (
                   <div
-                    className="h-[55vh] bg-white rounded-lg border border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
+                    className="mt-5 h-[60vh] rounded-lg border bg-white border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
                     key={item._id}
                     onClick={() => handleProductClick(item)} // Open modal on click
                   >
-                    <div className="flex items-center justify-center overflow-hidden h-[50%] mt-8 px-2">
+                    <div className=" flex items-center justify-center overflow-hidden h-[50%] mt-8 mx-4 px-2">
                       <img
                         className="w-[24vh] overflow-hidden rounded-lg"
                         src={`http://localhost:8000/images/${item.productThumb}`}
                         alt=""
                       />
                     </div>
-                    <div className="px-[1.5vw] mt-[3.5vh]">
+                    <div className="px-[1vw] mt-[1.5vh]">
                       <p className="font-bold text-[20px]">
                         {item.productName}
                       </p>
@@ -123,22 +199,22 @@ const AllProducts = () => {
                   {staticRating} ({staticRatingCount} ratings)
                 </span> */}
                       </div>
-                      <p className="font-bold text-md mt-[2vh]">
+                      <p className="font-bold text-sm mt-[2vh]">
                         Stock Remaining:{" "}
                         <span className="font-normal">
                           {getStock(item._id)}
                         </span>
                       </p>
-                      <p className="font-bold text-md ">
+                      <p className="font-bold text-sm">
                         Discounts:{" "}
                         <span className="font-normal">{item.discount}%</span>
                       </p>
                     </div>
                     {user?.userType === 2 ? (
-                      <div className="mt-[2vh] px-[1.5vw] flex justify-between items-center gap-2">
-                        <p className="font-extrabold text-lg text-seventh">
+                      <div className="mt-[2vh] px-[1vw] flex justify-between items-center gap-2">
+                        <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
-                          <span className="text-xl font-extrabold text-primary">
+                          <span className="text-md font-extrabold text-primary">
                             {Number(item.sellingPrice).toFixed(2)} Tk
                           </span>
                         </p>
@@ -148,7 +224,7 @@ const AllProducts = () => {
                             e.stopPropagation(); // Prevent modal from opening
                             handleCart(item);
                           }}
-                          className={`text-xs bg-fourth px-4 py-2 text-white tracking-wide font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
+                          className={`text-xs bg-fourth px-4 py-2 text-white tracking-tighter font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
                             getStock(item._id) === 0
                               ? "text-sixth hover:text-sixth hover:cursor-default"
                               : ""
@@ -159,10 +235,10 @@ const AllProducts = () => {
                         </button>
                       </div>
                     ) : (
-                      <div className="mt-[2vh] px-[1.5vw] flex justify-start items-center gap-2">
-                        <p className="font-extrabold text-lg text-seventh">
+                      <div className="mt-[2vh] px-[1vw] flex justify-start items-center gap-2">
+                        <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
-                          <span className="text-xl font-extrabold text-primary">
+                          <span className="text-lg font-extrabold text-primary">
                             {item.sellingPrice} Tk
                           </span>
                         </p>

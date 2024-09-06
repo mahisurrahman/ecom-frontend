@@ -5,7 +5,7 @@ import CurrentOrderDetails from "../../Components/UserOrderDetails/CurrentOrderD
 import { AuthContext } from "../../Providers/AuthProviders";
 import Loading from "../../Components/Loading/Loading";
 
-const UserOrders = () => {
+const  UserOrders = () => {
   const { loading, userOrders } = useContext(AuthContext);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
