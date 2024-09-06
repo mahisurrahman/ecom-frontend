@@ -36,7 +36,9 @@ import AdminCreateProduct from "../../Pages/AdminCreateProduct/AdminCreateProduc
 import BkashPaymentPage from "../../Pages/BkashPaymentPage/BkashPaymentPage";
 import BkashPaymentPageTwo from "../../Pages/BkashPaymentPageTwo/BkashPaymentPageTwo";
 import BkashPaymentPageThree from "../../Pages/BkashPaymentPageThree/BkashPaymentPageThree";
+// import BkashPaymentPageFour from "../../Pages/BkashPaymentPageFour/BaskPaymentPageFour";
 import AdminAllDiscounts from "../../Pages/AdminAllDiscounts.jsx/AdminAllDiscounts";
+import BkashPaymentPageFour from "../../Pages/BkashPaymentPageFour/BkashPaymentPageFour";
 
 const router = createBrowserRouter([
   {
@@ -167,6 +169,16 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/user/dash/paymentfour",
+        element: (
+          <PrivateRoute>
+            <UserPrivateRoute>
+              <BkashPaymentPageFour/>
+            </UserPrivateRoute>
+          </PrivateRoute>
+        )
+      }
     ],
   },
   {

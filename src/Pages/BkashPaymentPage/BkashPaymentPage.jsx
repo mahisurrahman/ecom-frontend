@@ -14,7 +14,7 @@ const BkashPaymentPageTwo = () => {
 
   const handleConfirm = () => {
     console.log("PIN entered:", pin);
-    navigate("/user/dash/paymenttwo", { state: orderData });
+    navigate("/user/dash/paymentfour", { state: orderData });
   };
 
   return (
@@ -34,7 +34,7 @@ const BkashPaymentPageTwo = () => {
               </div>
               <div className="text-right">
                 <span className="text-gray-700 font-bold text-xl">
-                  ৳ {orderData.allTotalPrice}
+                  {/* ৳ {orderData.allTotalPrice} */}
                 </span>
               </div>
             </div>
@@ -64,7 +64,7 @@ const BkashPaymentPageTwo = () => {
                 }`}
                 disabled={pin.length !== 11}
               >
-                Next
+                Send OTP
               </button>
             </div>
           </div>
