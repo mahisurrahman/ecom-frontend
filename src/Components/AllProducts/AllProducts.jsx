@@ -161,7 +161,7 @@ const AllProducts = () => {
               {showProds ? (
                 showProds.map((item) => (
                   <div
-                    className="mt-5 h-[60vh] rounded-lg border bg-white border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
+                    className="mt-5 h-[500px] rounded-lg border bg-white border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
                     key={item._id}
                     onClick={() => handleProductClick(item)} // Open modal on click
                   >
