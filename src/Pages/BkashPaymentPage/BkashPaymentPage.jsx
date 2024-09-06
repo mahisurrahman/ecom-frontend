@@ -41,7 +41,7 @@ const BkashPaymentPageTwo = () => {
             <div className="text-center mb-4">
               <p className="text-gray-700">Enter your bKash Account Number</p>
               <input
-                type="password"
+                type="number"
                 value={pin}
                 onChange={handlePinChange}
                 className="w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
