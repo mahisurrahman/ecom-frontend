@@ -144,6 +144,13 @@ const AllProducts = () => {
     setSelectedProduct(null);
   };
 
+  const handleNavigate = () =>{
+    try{
+      navigate("/login");
+    }catch(error){
+      console.log(error, "Error");
+    }
+  }
   return (
     <div className="bg-white">
       {loading ? (
@@ -210,8 +217,20 @@ const AllProducts = () => {
                         <span className="font-normal">{item.discount}%</span>
                       </p>
                     </div>
-                    {user?.userType === 2 ? (
-                      <div className="mt-[2vh] px-[1vw] flex justify-between items-center gap-2">
+                    {user?.userType === 1 ? (
+                       <div className="mt-[2vh] px-[1vw] flex justify-start items-center gap-2">
+                       <p className="font-extrabold text-sm text-seventh">
+                         Price:{" "}
+                         <span className="text-lg font-extrabold text-primary">
+                           {item.sellingPrice} Tk
+                         </span>
+                       </p>
+                     </div>
+                     
+                    ) : (
+                      <>
+                      {
+                        user?.userType === 2 ? <div className="mt-[2vh] px-[1vw] flex justify-between items-center gap-2">
                         <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
                           <span className="text-md font-extrabold text-primary">
@@ -233,16 +252,33 @@ const AllProducts = () => {
                         >
                           Add to Cart
                         </button>
-                      </div>
-                    ) : (
-                      <div className="mt-[2vh] px-[1vw] flex justify-start items-center gap-2">
+                      </div> : <div className="mt-[2vh] px-[1vw] flex justify-between items-center gap-2">
                         <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
-                          <span className="text-lg font-extrabold text-primary">
-                            {item.sellingPrice} Tk
+                          <span className="text-md font-extrabold text-primary">
+                            {Number(item.sellingPrice).toFixed(2)} Tk
                           </span>
                         </p>
+
+                        <button
+                          // onClick={(e) => {
+                          //   e.stopPropagation(); // Prevent modal from opening
+                          //   handleCart(item);
+                          // }}
+
+                          onClick={handleNavigate}
+                          className={`text-xs bg-fourth px-4 py-2 text-white tracking-tighter font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
+                            getStock(item._id) === 0
+                              ? "text-sixth hover:text-sixth hover:cursor-default"
+                              : ""
+                          }`}
+                          disabled={getStock(item._id) === 0}
+                        >
+                          Add to Cart
+                        </button>
                       </div>
+                      }
+                      </>
                     )}
                   </div>
                 ))
