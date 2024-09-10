@@ -240,7 +240,7 @@ const AllProducts = () => {
 
                         <button
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevent modal from opening
+                            e.stopPropagation();
                             handleCart(item);
                           }}
                           className={`text-xs bg-fourth px-4 py-2 text-white tracking-tighter font-bold rounded-lg duration-700 hover:duration-700 hover:bg-primary hover:cursor-pointer ${
@@ -297,6 +297,7 @@ const AllProducts = () => {
       {selectedProduct && (
         <ProductModal
           user={user}
+          handleNavigate={handleNavigate}
           product={selectedProduct}
           onClose={closeModal}
           handleCart={handleCart} // Pass handleCart function
