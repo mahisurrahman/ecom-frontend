@@ -1,8 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
+import useRequest from "../../../ApiServices/useRequest";
 
-const TotalRecords = () => {
+const TotalRecords = ({user}) => {
   const {allCarts, userOrders} = useContext(AuthContext); 
+  const [postRequest, getRequest] = useRequest();
+  const [userReviews, setUserReviews] = useState([]);
+
+  const getAllReviews = async() =>{
+    try{
+      let response = await getRequest(`/ratings/src/byUser/${user?._id}`);
+      setUserReviews(response?.data?.data);
+    }catch(error){
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    getAllReviews();
+  },[])
   return (
     <div>
       <div className="px-5 py-10 ml-10 bg-white rounded-md">
@@ -18,7 +34,7 @@ const TotalRecords = () => {
             <h1 className="font-bold">Cart</h1>
           </div>
           <div className="flex flex-col items-center">
-            <p>0</p>
+            <p>{userReviews?.length}</p>
             <h1 className="font-bold">Reviews</h1>
           </div>
         </div>

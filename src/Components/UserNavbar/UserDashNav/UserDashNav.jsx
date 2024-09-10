@@ -18,7 +18,7 @@ const UserDashNav = () => {
   };
   return (
     <div className="">
-      <TotalRecords></TotalRecords>
+      <TotalRecords user={user}></TotalRecords>
       <UserDashNavMenu></UserDashNavMenu>
       <div className="px-14 bg-white ml-10 py-3 rounded-lg mt-5">
         <p

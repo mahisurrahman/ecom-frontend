@@ -169,9 +169,9 @@ const Navbar = () => {
                 : "hover:text-primary text-[18px] font-normal"
             }
           >
-            Others
+            FAQ
           </NavLink>
-          {dropdownVisible && (
+          {/* {dropdownVisible && (
             <div
               ref={dropdownRef}
               className={`absolute text-primary pl-4 pt-2 w-60 bg-twelth top-[54px] right-0 rounded-lg ${
@@ -193,7 +193,7 @@ const Navbar = () => {
                     FAQ
                   </NavLink>
                 </div>
-                {/* <div>
+                <div>
                   <NavLink
                     to="/flashsales"
                     className={({ isActive, isPending }) =>
@@ -206,10 +206,10 @@ const Navbar = () => {
                   >
                     Flash Sales
                   </NavLink>
-                </div> */}
+                </div>
               </div>
             </div>
-          )}
+          )} */}
         </div>
         {user ? (
           <div className="relative flex items-center">

@@ -1,23 +1,64 @@
-import React, { useState } from "react";
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import useRequest from "../../ApiServices/useRequest";
+
 
 const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getStock }) => {
-  const [rating, setRating] = useState(0); // State for star rating
-  const [hover, setHover] = useState(0); // State for hover effect on stars
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
   const [reviewText, setReviewText] = useState("");
-
+  const [postRequest, getRequest] = useRequest();
+  const [reviews, setReviews] = useState([]);
+  const [calculatedRating, setCalculatedRating] = useState(0);
 
   if (!product) return null;
-  const staticRating = 4.5;
-  const staticRatingCount = 123;
+  
 
-  const handleSubmit = (e) => {
+  const calculateRating = async ()=>{
+    try{
+      const totalRating = reviews.length;
+      let sumOfAllRatings = 0;
+      let avgRating = 0;
+
+      reviews && reviews.map((item)=>{
+        sumOfAllRatings += item.rating;
+      })
+
+      avgRating = sumOfAllRatings/totalRating 
+
+      setCalculatedRating(avgRating);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  console.log(calculatedRating, "calculatedRating");
+  const staticRating = calculatedRating ? calculatedRating : 0;
+  const staticRatingCount = reviews.length;
+
+
+  useEffect(()=>{
+    calculateRating();
+  },[reviews])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Rating:", rating);
     console.log("Review:", reviewText);
+    const reviewData = {
+      rating,
+      reviewText,
+      userId: user?._id,
+      productId: product?._id,
+    }
 
-    // You can add your logic to handle the review submission here
-    // For example, sending the data to the backend or displaying a confirmation message.
+    const crtReview = await postRequest(`/ratings/crt`, reviewData);
+    if (crtReview) {
+      Swal.fire("Successfully Inserted the Review");
+      onClose();
+    }
   };
 
   const handleAddToCart = async () => {
@@ -43,6 +84,19 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
       Swal.fire("Please login to add items to the cart.");
     }
   };
+
+  const reviewGetFunction = async () => {
+    try {
+      const getAllReviews = await getRequest(`/ratings/src/byId/${product?._id}`);
+      setReviews(getAllReviews?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    reviewGetFunction();
+  }, [])
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -127,79 +181,214 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
             </div>
           </div>
         </div>
-        <div className="h-auto mt-6">
-                <h1 className="text-sm font-bold mb-2">Rate & Review This Product</h1>
-                <form onSubmit={handleSubmit}>
-                  {/* Star Rating Feature */}
-                  <div className="flex items-center mb-4">
-                    {[...Array(5)].map((star, index) => {
-                      const currentRating = index + 1;
-                      return (
-                        <button
-                          key={index}
-                          type="button"
-                          onClick={() => setRating(currentRating)}
-                          onMouseEnter={() => setHover(currentRating)}
-                          onMouseLeave={() => setHover(rating)}
-                          className={`text-3xl ${currentRating <= (hover || rating)
-                            ? "text-yellow-400"
-                            : "text-gray-300"
-                            }`}
-                        >
-                          &#9733;
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Textarea for Review */}
-                  <div className="mb-4">
-                    <textarea
-                      name="review"
-                      id="review"
-                      rows="4"
-                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Write your review here..."
-                      value={reviewText}
-                      onChange={(e) => setReviewText(e.target.value)}
-                      required
-                    ></textarea>
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="flex justify-end">
+        {
+          user?.userType === 2 ? <div className="h-auto mt-6">
+            <h1 className="text-sm font-bold mb-2">Rate & Review This Product</h1>
+            <form onSubmit={handleSubmit}>
+              {/* Star Rating Feature */}
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((star, index) => {
+                  const currentRating = index + 1;
+                  return (
                     <button
-                      type="submit"
-                      className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition duration-300"
+                      key={index}
+                      type="button"
+                      onClick={() => setRating(currentRating)}
+                      onMouseEnter={() => setHover(currentRating)}
+                      onMouseLeave={() => setHover(rating)}
+                      className={`text-3xl ${currentRating <= (hover || rating)
+                        ? "text-yellow-400"
+                        : "text-gray-300"
+                        }`}
                     >
-                      Leave a Review
+                      &#9733;
                     </button>
-                  </div>
-                </form>
+                  );
+                })}
               </div>
 
+              {/* Textarea for Review */}
+              <div className="mb-4">
+                <textarea
+                  name="review"
+                  id="review"
+                  rows="4"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Write your review here..."
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition duration-300"
+                >
+                  Leave a Review
+                </button>
+              </div>
+            </form>
+          </div> : <></>
+        }
+
         {/* Review Section */}
-        <div className="mt-10 w-full bg-gray-100 p-4 rounded-lg">
+        <div className="mt-10 w-full p-4 rounded-lg">
           <h3 className="text-2xl font-semibold mb-4">Reviews</h3>
           <div className="space-y-4">
             {/* Static Reviews */}
-            <div className="p-4 border rounded-lg">
-              <div className="flex items-center gap-2">
-                <p className="font-bold">John Doe</p>
-                <span className=" flex items-center">
-                  <svg
-                    className="w-3 h-3 text-yellow-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
-                  </svg>
-
-                </span>
-              </div>
-              <p className="text-sm text-gray-600">"Great product, fast delivery!"</p>
-            </div>
+            {
+              reviews && reviews.map((review) =>
+                <div key={review?._id} className="p-4 border rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold">{review?.userFullName}</p>
+                    <span className="flex items-center">
+                      {
+                        review.rating === 1 && <svg
+                          className="w-5 h-5 text-yellow-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                        </svg>
+                      }
+                      {
+                        review.rating === 2 && <div className="flex items-center">
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                        </div>
+                      }
+                      {
+                        review.rating === 3 && <div className="flex items-center">
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                        </div>
+                      }
+                      {
+                        review.rating === 4 && <div className="flex items-center">
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                        </div>
+                      }
+                      {
+                        review.rating === 5 && <div className="flex items-center">
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                          <svg
+                            className="w-5 h-5 text-yellow-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
+                          </svg>
+                        </div>
+                      } 
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-600">{review?.review}</p>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

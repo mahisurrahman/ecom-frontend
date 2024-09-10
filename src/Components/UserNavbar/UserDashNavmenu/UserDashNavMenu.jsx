@@ -40,8 +40,8 @@ const UserDashNavMenu = () => {
       >
         My Orders
       </NavLink>
-      {/* <NavLink
-        to="/user/dash/wishlist"
+      <NavLink
+        to="/user/dash/reviews"
         className={({ isActive, isPending }) =>
           isPending
             ? "pending"
@@ -50,9 +50,9 @@ const UserDashNavMenu = () => {
             : "hover:text-fourth"
         }
       >
-        My Wishlists
-      </NavLink> */}
-      <NavLink
+        My Reviews
+      </NavLink>
+      {/* <NavLink
         to="/user/dash/refunds"
         className={({ isActive, isPending }) =>
           isPending
@@ -63,7 +63,7 @@ const UserDashNavMenu = () => {
         }
       >
         My Refund
-      </NavLink>
+      </NavLink> */}
       {/* <NavLink
         to="/my-reports"
         className={({ isActive, isPending }) =>

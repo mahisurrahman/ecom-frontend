@@ -24,6 +24,7 @@ const AllProducts = () => {
   const [showProds, setShowProds] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null); // State for the selected product
   const [postRequest, getRequest] = useRequest();
+
   const navigate = useNavigate();
 
   const getProducts = async () => {
@@ -38,6 +39,8 @@ const AllProducts = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+
 
   const getStock = (productId) => {
     try {
@@ -163,16 +166,16 @@ const AllProducts = () => {
               handleCategoryClick={handleCategoryClick}
             />
           </div>
-          <div className="col-span-10 px-8 py-8 bg-fifth">
-            <div className="grid grid-cols-4 gap-x-4">
+          <div className="col-span-10 px-4 py-4 bg-fifth">
+            <div className="grid grid-cols-4 gap-x-2">
               {showProds ? (
                 showProds.map((item) => (
                   <div
-                    className="mt-5 h-[500px] rounded-lg border bg-white border-sixth shadow-xl duration-500 hover:scale-105 hover:duration-500 hover:cursor-pointer"
+                    className="h-[400px] rounded-lg border bg-white border-sixth shadow-xl duration-500 hover:scale-105 hover:shadow-2xl hover:duration-500 hover:cursor-pointer"
                     key={item._id}
                     onClick={() => handleProductClick(item)} // Open modal on click
                   >
-                    <div className=" flex items-center justify-center overflow-hidden h-[50%] mt-8 mx-4 px-2">
+                    <div className="flex items-center justify-center overflow-hidden h-[50%] mt-4 mx-4 px-2">
                       <img
                         className="w-[24vh] overflow-hidden rounded-lg"
                         src={`http://localhost:8000/images/${item.productThumb}`}
@@ -183,29 +186,7 @@ const AllProducts = () => {
                       <p className="font-bold text-[20px]">
                         {item.productName}
                       </p>
-                      <div className="flex items-center mb-4">
-                        {/* Static Stars for Rating */}
-                        {[...Array(5)].map((star, index) => {
-                          return (
-                            <svg
-                              key={index}
-                              className={`w-6 h-6 ${
-                                index < Math.floor(staticRating)
-                                  ? "text-yellow-400"
-                                  : "text-gray-300"
-                              }`}
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.977a1 1 0 00.95.69h4.184c.969 0 1.371 1.24.588 1.81l-3.388 2.464a1 1 0 00-.364 1.118l1.286 3.977c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.388 2.464c-.785.57-1.84-.197-1.54-1.118l1.286-3.977a1 1 0 00-.364-1.118L2.605 9.404c-.784-.57-.38-1.81.588-1.81h4.184a1 1 0 00.95-.69l1.286-3.977z"></path>
-                            </svg>
-                          );
-                        })}
-                        {/* <span className="ml-2 text-gray-600 text-sm">
-                  {staticRating} ({staticRatingCount} ratings)
-                </span> */}
-                      </div>
+                     
                       <p className="font-bold text-sm mt-[2vh]">
                         Stock Remaining:{" "}
                         <span className="font-normal">
@@ -230,7 +211,7 @@ const AllProducts = () => {
                     ) : (
                       <>
                       {
-                        user?.userType === 2 ? <div className="mt-[2vh] px-[1vw] flex justify-between items-center gap-2">
+                        user?.userType === 2 ? <div className="mt-[2vh] px-[1vw] flex sm:flex-col md:flex-col lg:flex-row justify-between items-center gap-2">
                         <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
                           <span className="text-md font-extrabold text-primary">
