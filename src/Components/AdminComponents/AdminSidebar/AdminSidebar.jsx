@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { MdDiscount } from "react-icons/md";
 import Swal from "sweetalert2";
+import { MdReviews } from "react-icons/md";
 
 const AdminSidebar = ({ user, setUser }) => {
   const navigate = useNavigate("/");
@@ -121,6 +122,19 @@ const AdminSidebar = ({ user, setUser }) => {
       >
         <FaListAlt className="text-2xl  mr-4" />
         All Categories List
+      </NavLink>
+      <NavLink
+        to="/admin/panel/allReviews"
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-bold text-fourth px-4 py-4 flex items-center gap-2"
+            : "hover:text-fourth px-4 py-4 flex items-center gap-2"
+        }
+      >
+        <MdReviews className="text-2xl  mr-4" />
+        All Reviews List
       </NavLink>
       <NavLink
         to="/admin/panel/pending/orders"

@@ -40,6 +40,7 @@ import BkashPaymentPageThree from "../../Pages/BkashPaymentPageThree/BkashPaymen
 import AdminAllDiscounts from "../../Pages/AdminAllDiscounts.jsx/AdminAllDiscounts";
 import BkashPaymentPageFour from "../../Pages/BkashPaymentPageFour/BkashPaymentPageFour";
 import UserReviews from "../../Pages/UserReviews/UserReviews";
+import AdminAllReviews from "../../Pages/AdminAllReviews/AdminAllReviews";
 
 const router = createBrowserRouter([
   {
@@ -125,7 +126,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserPrivateRoute>
-              <UserReviews/>
+              <UserReviews />
             </UserPrivateRoute>
           </PrivateRoute>
         ),
@@ -165,7 +166,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserPrivateRoute>
-              <BkashPaymentPageTwo/>
+              <BkashPaymentPageTwo />
             </UserPrivateRoute>
           </PrivateRoute>
         ),
@@ -175,7 +176,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserPrivateRoute>
-              <BkashPaymentPageThree/>
+              <BkashPaymentPageThree />
             </UserPrivateRoute>
           </PrivateRoute>
         ),
@@ -185,11 +186,11 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserPrivateRoute>
-              <BkashPaymentPageFour/>
+              <BkashPaymentPageFour />
             </UserPrivateRoute>
           </PrivateRoute>
-        )
-      }
+        ),
+      },
     ],
   },
   {
@@ -218,6 +219,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminPrivateRoute>
               <AdminAllProducts />
+            </AdminPrivateRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/panel/allReviews",
+        element: (
+          <PrivateRoute>
+            <AdminPrivateRoute>
+              <AdminAllReviews />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),
