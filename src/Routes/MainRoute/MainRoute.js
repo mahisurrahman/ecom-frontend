@@ -41,6 +41,7 @@ import AdminAllDiscounts from "../../Pages/AdminAllDiscounts.jsx/AdminAllDiscoun
 import BkashPaymentPageFour from "../../Pages/BkashPaymentPageFour/BkashPaymentPageFour";
 import UserReviews from "../../Pages/UserReviews/UserReviews";
 import AdminAllReviews from "../../Pages/AdminAllReviews/AdminAllReviews";
+import AdminDeliveryCharge from "../../Pages/AdminDeliveryCharge/AdminDeliveryCharge";
 
 const router = createBrowserRouter([
   {
@@ -229,6 +230,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminPrivateRoute>
               <AdminAllReviews />
+            </AdminPrivateRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/panel/deliverycharge",
+        element: (
+          <PrivateRoute>
+            <AdminPrivateRoute>
+              <AdminDeliveryCharge />
             </AdminPrivateRoute>
           </PrivateRoute>
         ),

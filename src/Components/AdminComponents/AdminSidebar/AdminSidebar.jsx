@@ -15,6 +15,7 @@ import {
   FaTags,
   FaStar,
 } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
 import { MdDiscount } from "react-icons/md";
 import Swal from "sweetalert2";
 import { MdReviews } from "react-icons/md";
@@ -174,6 +175,19 @@ const AdminSidebar = ({ user, setUser }) => {
       >
         <FaTrash className="text-2xl  mr-4" />
         Deleted Orders
+      </NavLink>
+      <NavLink
+        to="/admin/panel/deliverycharge"
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-bold text-fourth px-4 py-4 flex items-center gap-2"
+            : "hover:text-fourth px-4 py-4 flex items-center gap-2"
+        }
+      >
+        <TbTruckDelivery className="text-2xl  mr-4" />
+        Delivery Charges
       </NavLink>
       <NavLink
         to="/admin/panel/allcustomers"
