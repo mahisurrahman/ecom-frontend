@@ -13,7 +13,7 @@ const AdminSingleStkOutItem = ({ stock }) => {
       const singleProd = await getRequest(`/products/src/byid/${prodId}`);
       setProduct(singleProd?.data?.data, "SIngle PRoduct");
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

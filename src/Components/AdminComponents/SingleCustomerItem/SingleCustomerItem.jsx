@@ -24,7 +24,7 @@ const SingleCustomerItem = ({ user, handleDeleteUser }) => {
       const details = await getRequest(`/users/src/byId/${user.userId}`);
       setUserMoreDetails(details?.data?.data, "Details");
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

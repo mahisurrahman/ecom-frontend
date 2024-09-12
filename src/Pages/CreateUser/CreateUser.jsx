@@ -31,7 +31,7 @@ const CreateUser = () => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
       setImagePreview(URL.createObjectURL(selectedImage));
-      //console.log(selectedImage);
+      console.log(selectedImage);
       setImage(selectedImage);
       setLoading(false);
     }
@@ -40,7 +40,7 @@ const CreateUser = () => {
   const handleSignUpUser = async (event) => {
     setLoading(true);
     event.preventDefault();
-    //console.log("image", image);
+    console.log("image", image);
     const formData = new FormData();
     formData.append("userName", userName);
     formData.append("userEmail", email);

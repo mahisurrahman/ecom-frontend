@@ -20,7 +20,7 @@ const Navbar = () => {
       let userDetails = JSON.parse(localStorage.getItem("userCreds"));
       setUser(userDetails);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

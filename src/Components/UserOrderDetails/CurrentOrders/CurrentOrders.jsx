@@ -15,7 +15,7 @@ const CurrentOrders = ({ uOrder, index }) => {
         setCurrentState("Deleted");
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

@@ -21,7 +21,7 @@ const AdminProfile = () => {
       const ordersList = await getRequest("/orders/src/all");
       setAllOrders(ordersList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -30,7 +30,7 @@ const AdminProfile = () => {
       const usersList = await getRequest("/users/src");
       setAllUsers(usersList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -39,7 +39,7 @@ const AdminProfile = () => {
       const productsList = await getRequest("/products/src/all");
       setAllProducts(productsList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -48,7 +48,7 @@ const AdminProfile = () => {
       const availableProductsList = await getRequest("/products/src");
       setAllAvailableProducts(availableProductsList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -57,7 +57,7 @@ const AdminProfile = () => {
       const pendingOrdersList = await getRequest("/orders/src/pending/all");
       setAllPendingOrders(pendingOrdersList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -66,17 +66,17 @@ const AdminProfile = () => {
       const deliveredOrdersList = await getRequest("/orders/src/delivered/all");
       setAllDeliveredOrders(deliveredOrdersList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
   const getAllDeletedOrders = async () => {
     try {
       const deletedOrdersList = await getRequest("/orders/src/deleted/all");
-      //console.log(deletedOrdersList);
+      console.log(deletedOrdersList);
       setAllDeletedOrders(deletedOrdersList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

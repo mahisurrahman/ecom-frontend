@@ -8,7 +8,7 @@ const UserRefunds = () => {
   const fetchRefundedOrders = () => {
     try {
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

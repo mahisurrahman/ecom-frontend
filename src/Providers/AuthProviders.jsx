@@ -22,7 +22,7 @@ const AuthProviders = ({ children }) => {
       setAllCategories(mainCategoriesDetails?.data?.data);
       // setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -43,7 +43,7 @@ const AuthProviders = ({ children }) => {
 
       setAllProducts(filteredProducts);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -52,7 +52,7 @@ const AuthProviders = ({ children }) => {
       const getAllStocks = await getRequest("/stocks/src");
       setAllStocks(getAllStocks?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -61,7 +61,7 @@ const AuthProviders = ({ children }) => {
       const getAllCarts = await getRequest(`/carts/src/byuser/${user._id}`);
       setAllCarts(getAllCarts.data.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -111,7 +111,7 @@ const AuthProviders = ({ children }) => {
       // Perform the API request
       await getRequest(`/carts/qty/decr/${item._id}`);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -151,7 +151,7 @@ const AuthProviders = ({ children }) => {
 
       await getRequest(`carts/qty/incr/${item._id}`);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -180,7 +180,7 @@ const AuthProviders = ({ children }) => {
       }
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       setLoading(false);
     }
   };
@@ -193,7 +193,7 @@ const AuthProviders = ({ children }) => {
         setUserOrders(getOrders?.data?.data);
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
     setLoading(false);
 };

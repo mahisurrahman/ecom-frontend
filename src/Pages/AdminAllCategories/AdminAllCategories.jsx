@@ -13,7 +13,7 @@ const AdminAllCategories = () => {
       const allCats = await getRequest("/categories/src");
       setAllCategories(allCats?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -30,7 +30,7 @@ const AdminAllCategories = () => {
       }
       getAllCateoriesFnc();
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -38,12 +38,12 @@ const AdminAllCategories = () => {
     try {
       const remvCat = await postRequest(`/categories/del/byId/${categoryId}`);
       if (remvCat) {
-        //console.log("hi");
+        console.log("hi");
         const getCats = await getRequest("/categories/src");
         setAllCategories(getCats?.data?.data);
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

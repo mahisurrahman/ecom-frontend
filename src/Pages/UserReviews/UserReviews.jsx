@@ -15,7 +15,7 @@ function UserReviews() {
       const response = await getRequest(`/ratings/src/byUser/${user?._id}`);
       setListReviews(response?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -25,7 +25,7 @@ function UserReviews() {
         setDeletedRv(response?.data?.data);
         Swal.fire("Successfully Removed the Review");
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   }
 

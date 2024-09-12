@@ -12,7 +12,7 @@ const AdminPendingOrders = () => {
       const orders = await getRequest("/orders/src/pending/all");
       setAllOrders(orders?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -25,7 +25,7 @@ const AdminPendingOrders = () => {
       setAllOrders(updatedPndngOrds?.data?.data);
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -38,7 +38,7 @@ const AdminPendingOrders = () => {
       setAllOrders(updatedPndngOrds?.data?.data);
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

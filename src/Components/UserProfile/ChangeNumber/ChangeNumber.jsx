@@ -18,7 +18,7 @@ const ChangeNumber = () => {
       `/users/upt/${user._id}`,
       userCreds
     );
-    // //console.log(changeUserPhoneNumber?.data?.data?.modifiedCount);
+    // console.log(changeUserPhoneNumber?.data?.data?.modifiedCount);
     if (changeUserPhoneNumber?.data?.data?.modifiedCount > 0) {
       const updateUser = { ...user, phoneNumber: userCreds.userNumber };
       localStorage.setItem("userCreds", JSON.stringify(updateUser));

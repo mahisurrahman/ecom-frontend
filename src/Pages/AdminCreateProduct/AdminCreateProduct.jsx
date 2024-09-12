@@ -45,7 +45,7 @@ const AdminCreateProduct = () => {
       formData.append("stockQuantity", stockQuantity);
 
       for (let [key, value] of formData.entries()) {
-        //console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
       }
 
       setLoading(false);
@@ -56,7 +56,7 @@ const AdminCreateProduct = () => {
         navigate("/admin/panel");
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       setLoading(false);
     }
   };

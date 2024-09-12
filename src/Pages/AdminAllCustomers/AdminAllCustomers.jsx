@@ -13,7 +13,7 @@ const AdminAllCustomers = () => {
       const userDetails = await getRequest("/users/customer/src");
       setUsers(userDetails?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -25,7 +25,7 @@ const AdminAllCustomers = () => {
       setUsers(updatedUsers?.data?.data);
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

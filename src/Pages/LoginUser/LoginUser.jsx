@@ -23,13 +23,13 @@ const LoginUser = () => {
       const userCreds = { email, password };
       await handleLoginData(userCreds);
       if (handleLoginData) {
-        //console.log(user, "Userrrr");
+        console.log(user, "Userrrr");
         navigate("/");
       } else {
         navigate("/login");
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

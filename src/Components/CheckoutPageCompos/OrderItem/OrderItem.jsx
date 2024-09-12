@@ -24,9 +24,9 @@ const OrderItem = ({
         .then((res) => {
           setIndividualStock(res.data.data);
         })
-        .catch((error) => //console.log(error));
+        .catch((error) => console.log(error));
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -55,7 +55,7 @@ const OrderItem = ({
 
       const createOrder = await postRequest("/orders/crt", orderDetails);
       if (createOrder) {
-       
+
         //Remove Cart Items from the Cart State//
         const filterCart = allCarts.filter(
           (ct) => ct._id !== orderDetails.cartId
@@ -70,7 +70,7 @@ const OrderItem = ({
       }
       setButtonLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       setButtonLoading(false);
     }
   };
@@ -169,11 +169,10 @@ const OrderItem = ({
         <p className="font-semibold">Choose Payment Method</p>
         <div className="flex items-center gap-5">
           <button
-            className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${
-              isCODSelected
+            className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${isCODSelected
                 ? "border-fourth text-fourth"
                 : "border-ninth text-ninth"
-            }`}
+              }`}
             onClick={handleCODClick}
           >
             Cash On <br /> Delivery
@@ -196,11 +195,10 @@ const OrderItem = ({
         ) : (
           <button
             onClick={() => handlePlaceOrder(item)}
-            className={`w-full py-2 font-semibold rounded-md border-2 duration-300 ${
-              isCODSelected
+            className={`w-full py-2 font-semibold rounded-md border-2 duration-300 ${isCODSelected
                 ? "bg-fourth text-white border-fourth hover:bg-white hover:text-primary hover:cursor-pointer hover:duration-300"
                 : "bg-ninth text-white border-ninth cursor-not-allowed"
-            }`}
+              }`}
             disabled={!isCODSelected || buttonLoading}
           >
             {buttonLoading ? "Processing..." : "Place Order"}

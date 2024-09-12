@@ -15,7 +15,7 @@ const ChangeEmail = () => {
       userEmail,
     };
     const changeEmail = await postRequest(`/users/upt/${user._id}`, userCreds);
-    // //console.log(changeEmail?.data?.data?.modifiedCount);
+    // console.log(changeEmail?.data?.data?.modifiedCount);
     if (changeEmail?.data?.data?.modifiedCount > 0) {
       const updateUser = {...user, userEmail: userCreds.userEmail};
       localStorage.setItem("userCreds", JSON.stringify(updateUser));

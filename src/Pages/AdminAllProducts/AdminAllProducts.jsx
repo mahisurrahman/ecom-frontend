@@ -13,7 +13,7 @@ const AdminAllProducts = () => {
       const productsList = await getRequest("/products/src/all");
       setAllProducts(productsList?.data?.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -29,7 +29,7 @@ const AdminAllProducts = () => {
       setAllProducts(updatedProducts?.data?.data);
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -41,7 +41,7 @@ const AdminAllProducts = () => {
       setAllProducts(updatedProducts?.data?.data);
       setLoading(false);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

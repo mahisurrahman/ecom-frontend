@@ -17,7 +17,7 @@ const AdminAllDiscounts = () => {
       const allDiscounts = await getRequest("/discount/all/src");
       setDiscountedProds(allDiscounts?.data?.data);
     } catch (error) {
-      //console.log("Failed to get all discounted products", error);
+      console.log("Failed to get all discounted products", error);
     }
   };
 
@@ -37,7 +37,7 @@ const AdminAllDiscounts = () => {
       // Update state with merged data
       setMergedItem(mergedData); 
     } catch (error) {
-      //console.log("Failed to merge products", error);
+      console.log("Failed to merge products", error);
     }
   };
 
@@ -69,7 +69,7 @@ const AdminAllDiscounts = () => {
         }
 
     }catch(error){
-        //console.log("Failed to Delete Product", error);
+        console.log("Failed to Delete Product", error);
     }
   }
 
@@ -83,7 +83,7 @@ const AdminAllDiscounts = () => {
 
       handleCloseModal();
     } catch (error) {
-      //console.log("Failed to apply discount", error);
+      console.log("Failed to apply discount", error);
     }
   };
 
