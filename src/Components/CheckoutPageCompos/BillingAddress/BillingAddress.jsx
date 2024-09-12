@@ -17,7 +17,7 @@ const BillingAddress = ({customerDetails}) => {
                   </button>
                 </div>
                 <>
-                  {/* {console.log(customerDetails, "From Miraaaaaaaaaaaaaaaj")} */}
+                  {/* {//console.log(customerDetails, "From Miraaaaaaaaaaaaaaaj")} */}
                   {customerDetails?.isActive ? (
                     <textarea
                       className="text-sm border-2 tracking-widest w-full border-ninth px-4 py-2 rounded-md mt-2 focus:outline-none default:uppercase"

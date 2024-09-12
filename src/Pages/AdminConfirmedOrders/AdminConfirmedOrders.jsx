@@ -9,10 +9,10 @@ const AdminConfirmedOrders = () => {
   const getAllConfirmedOrder = async () => {
     try {
       const allCnfrmOrdr = await getRequest("/orders/src/confirmed/all");
-      console.log(allCnfrmOrdr?.data?.data);
+      //console.log(allCnfrmOrdr?.data?.data);
       setOrders(allCnfrmOrdr?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

@@ -11,7 +11,7 @@ const AdminDeletedOrders = () => {
     setOrders(orderLst?.data?.data);
     try {
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

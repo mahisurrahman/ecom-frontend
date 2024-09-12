@@ -24,9 +24,9 @@ const OrderItem = ({
         .then((res) => {
           setIndividualStock(res.data.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => //console.log(error));
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -70,7 +70,7 @@ const OrderItem = ({
       }
       setButtonLoading(false);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setButtonLoading(false);
     }
   };

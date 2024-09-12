@@ -13,7 +13,7 @@ const BkashPaymentPageTwo = () => {
   };
 
   const handleConfirm = () => {
-    console.log("PIN entered:", pin);
+    //console.log("PIN entered:", pin);
     navigate("/user/dash/paymentthree", { state: orderData });
   };
 
@@ -47,7 +47,7 @@ const BkashPaymentPageTwo = () => {
             <div className="flex w-full justify-between items-center">
               <Link to={"/user/dash/cart"}>
                 <button
-                  onClick={() => console.log("Close clicked")}
+                  onClick={() => //console.log("Close clicked")}
                   className="w-[200px] bg-gray-200 text-gray-700 py-2 rounded-bl-lg hover:bg-gray-300"
                 >
                   CLOSE

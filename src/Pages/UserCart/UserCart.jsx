@@ -20,7 +20,7 @@ const UserCart = () => {
       const allItems = await getRequest(`/carts/src/byuser/${user._id}`);
       setCartItems(allItems?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -75,7 +75,7 @@ const UserCart = () => {
       }
       setButtonLoading(false);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setButtonLoading(false);
     }
   };
@@ -114,7 +114,7 @@ const UserCart = () => {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      //console.log(error);
 
     }
   };

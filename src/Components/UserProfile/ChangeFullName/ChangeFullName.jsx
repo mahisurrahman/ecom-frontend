@@ -18,7 +18,7 @@ const ChangeFullName = () => {
         `/users/upt/${user._id}`,
         userCreds
       );
-      // console.log(changeUserFullName?.data?.data?.modifiedCount);
+      // //console.log(changeUserFullName?.data?.data?.modifiedCount);
       if (changeUserFullName?.data?.data?.modifiedCount > 0) {
         const updateUser = { ...user, userFullName: userCreds.userFullName };
         localStorage.setItem("userCreds", JSON.stringify(updateUser));

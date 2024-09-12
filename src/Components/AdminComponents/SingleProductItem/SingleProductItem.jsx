@@ -19,7 +19,7 @@ const SingleProductItem = ({
       const stockRm = await getRequest(`/stocks/src/${prodId}`);
       setAllStck(stockRm?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

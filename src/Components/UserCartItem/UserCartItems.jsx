@@ -29,7 +29,7 @@ const UserCartItems = ({ item }) => {
         decreaseCartQty(item);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -37,7 +37,7 @@ const UserCartItems = ({ item }) => {
     try {
       increaseCartQty(item);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -70,7 +70,7 @@ const UserCartItems = ({ item }) => {
 
       await getRequest(`/carts/del/byId/${item.productId}`);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

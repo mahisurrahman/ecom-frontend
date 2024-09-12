@@ -32,7 +32,7 @@ const AllProducts = () => {
       const allProdss = await getRequest("/products/src");
       setShowProds(allProdss?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -49,7 +49,7 @@ const AllProducts = () => {
       );
       return stock ? stock.stockQTY : "Out of Stock";
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -121,7 +121,7 @@ const AllProducts = () => {
         navigate('/login');
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -133,7 +133,7 @@ const AllProducts = () => {
 
       setShowProds(getCategoriseProds?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -151,7 +151,7 @@ const AllProducts = () => {
     try{
       navigate("/login");
     }catch(error){
-      console.log(error, "Error");
+      //console.log(error, "Error");
     }
   }
   return (

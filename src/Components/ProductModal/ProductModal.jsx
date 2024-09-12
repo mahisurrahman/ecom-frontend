@@ -30,11 +30,11 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
 
       setCalculatedRating(avgRating);
     }catch(error){
-      console.log(error);
+      //console.log(error);
     }
   }
 
-  console.log(calculatedRating, "calculatedRating");
+  //console.log(calculatedRating, "calculatedRating");
   const staticRating = calculatedRating ? calculatedRating : 0;
   const staticRatingCount = reviews.length;
 
@@ -45,8 +45,8 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Rating:", rating);
-    console.log("Review:", reviewText);
+    //console.log("Rating:", rating);
+    //console.log("Review:", reviewText);
     const reviewData = {
       rating,
       reviewText,
@@ -90,7 +90,7 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
       const getAllReviews = await getRequest(`/ratings/src/byId/${product?._id}`);
       setReviews(getAllReviews?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

@@ -15,7 +15,7 @@ const AdminDeletedProducts = () => {
         setDeletedProducts([]);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

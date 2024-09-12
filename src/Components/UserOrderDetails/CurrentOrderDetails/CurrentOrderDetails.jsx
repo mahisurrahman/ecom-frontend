@@ -21,7 +21,7 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
         setCurrentState("Deleted");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -33,12 +33,12 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
         Swal.fire("Successfully Removed the Order");
       } else {
         Swal.fire("Failed to Remove the Order");
-        console.log(removeOrder);
+        //console.log(removeOrder);
       }
 
       return window.location.reload();
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

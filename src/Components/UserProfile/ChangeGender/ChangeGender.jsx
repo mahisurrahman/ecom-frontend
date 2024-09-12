@@ -18,7 +18,7 @@ const ChangeGender = () => {
       `/users/upt/${user._id}`,
       userCreds
     );
-    // console.log(changeUserGender?.data?.data?.modifiedCount);
+    // //console.log(changeUserGender?.data?.data?.modifiedCount);
     if (changeUserGender?.data?.data?.modifiedCount > 0) {
       const updateUser = { ...user, gender: userCreds.gender };
       localStorage.setItem("userCreds", JSON.stringify(updateUser));

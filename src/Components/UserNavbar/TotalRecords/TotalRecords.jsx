@@ -12,7 +12,7 @@ const TotalRecords = ({user}) => {
       let response = await getRequest(`/ratings/src/byUser/${user?._id}`);
       setUserReviews(response?.data?.data);
     }catch(error){
-      console.log(error);
+      //console.log(error);
     }
   };
 

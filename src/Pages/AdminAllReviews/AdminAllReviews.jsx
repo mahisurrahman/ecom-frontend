@@ -11,7 +11,7 @@ function AdminAllReviews() {
       let response = await getRequest(`/ratings/src/all`);
       setAllRevs(response?.data?.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -20,7 +20,7 @@ function AdminAllReviews() {
       const deleteReviews = await getRequest(`/ratings/del/byId/${id}`);
       Swal.fire("Successfully Deleted the Review");
     }catch(error){
-      console.log(error);
+      //console.log(error);
     }
   }
 

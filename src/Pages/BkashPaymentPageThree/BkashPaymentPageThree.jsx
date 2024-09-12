@@ -12,7 +12,7 @@ const BkashPaymentPageThree = () => {
   const [postRequest, getRequest] = useRequest();
   const [loading, setLoading] = useState(false);
 
-  console.log("Order DATA from payment page 3", orderData);
+  //console.log("Order DATA from payment page 3", orderData);
 
 
   const handleConfirm = async () => {
@@ -22,11 +22,11 @@ const BkashPaymentPageThree = () => {
             cartId : orderData.cartId,
         }
         const orderProcessing = await postRequest(`${process.env.REACT_APP_BackendURL}/orders/crt`, orderCartData);
-        console.log(orderProcessing?.data?.data, "Order Processing");
+        //console.log(orderProcessing?.data?.data, "Order Processing");
         setLoading(false);
         navigate("/");
     }catch(error){
-        console.log(error);
+        //console.log(error);
         setLoading(false);
     }
   };
