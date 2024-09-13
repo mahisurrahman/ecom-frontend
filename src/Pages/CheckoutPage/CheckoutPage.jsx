@@ -32,20 +32,8 @@ const CheckoutPage = () => {
     getAllDelvCharges();
   },[])
 
-  const options = [
-    {
-      id: 1,
-      label: "Express Delivery",
-      description: "90 min express delivery",
-    },
-    { id: 2, label: "Morning", description: "10 AM to 11 AM" },
-    { id: 3, label: "Noon", description: "12 PM to 3 PM" },
-    { id: 4, label: "Evening", description: "4 PM to 6 PM" },
-    { id: 5, label: "Night", description: "6 PM to 10 PM" },
-  ];
-
-  const handleClick = (index) => {
-    setSelected(index);
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const getCustomerDetails = async () => {
@@ -92,7 +80,7 @@ const CheckoutPage = () => {
                 <h1 className="text-md font-extrabold tracking-wider">
                   Your Orders
                 </h1>
-                <OrderItem item={item} user={user} customerDetails={customerDetails} loading={loading} setLoading={setLoading} allCarts={allCarts} setAllCarts={setAllCarts}></OrderItem>
+                <OrderItem item={item} user={user} customerDetails={customerDetails} loading={loading} setLoading={setLoading} allCarts={allCarts} setAllCarts={setAllCarts} selected={selected}></OrderItem>
               </div>
             </div>
           </div>

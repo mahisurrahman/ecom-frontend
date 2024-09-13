@@ -14,11 +14,11 @@ const DeliverySchedule = ({allCharges, selected, handleClick}) => {
       <div className="grid grid-cols-3 gap-4">
         {allCharges.map((option, index) => (
           <div
-            key={option.id}
+            key={option?._id}
             className={`w-44 border rounded-lg py-4 px-4 bg-fifth hover:cursor-pointer hover:border-seventh hover:duration-300 ${
               selected === index ? "border-seventh" : "border-fifth"
             }`}
-            onClick={() => handleClick(index)}
+            onClick={() => handleClick(option)}
           >
             <p className="font-semibold text-sm">{option.deliveryShift}</p>
             <p className="text-xs mt-2">{option.deliveryFee} /- TK</p>

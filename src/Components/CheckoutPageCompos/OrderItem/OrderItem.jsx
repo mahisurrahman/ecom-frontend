@@ -10,6 +10,7 @@ const OrderItem = ({
   loading,
   allCarts,
   setAllCarts,
+  selected
 }) => {
   const [isCODSelected, setIsCODSelected] = useState(false);
   const [postRequest, getRequest] = useRequest();
@@ -48,8 +49,9 @@ const OrderItem = ({
         productName: item.productName,
         productThumb: item.productImage,
         productSellingPrice: item.totalPrice,
-        allTotalPrice: item.totalPrice,
+        allTotalPrice: item.totalPrice + selected?.deliveryFee,
         totalQuantity: item.quantity,
+        deliveryFee: selected?.deliveryFee,
         discount: 0,
       };
 
@@ -130,14 +132,16 @@ const OrderItem = ({
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Shipping</p>
-          <p>৳ 0.00</p>
+          {
+            selected && selected?.deliveryFee ? <p>৳ {selected?.deliveryFee}</p> :  <p>৳ 0.00</p>
+          }
         </div>
-        <div className="flex justify-between gap-2 items-center text-xs mt-2">
+        {/* <div className="flex justify-between gap-2 items-center text-xs mt-2">
           <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
             Do you have coupon
           </p>
           <p></p>
-        </div>
+        </div> */}
         <div className="my-5">
           <hr />
         </div>
@@ -145,7 +149,9 @@ const OrderItem = ({
       <div className="mt-10">
         <div className="font-bold flex justify-between gap-2 items-center text-xl">
           <p>Total</p>
-          <p>৳ {item.totalPrice}</p>
+          {
+            selected && selected?.deliveryFee ? <p>৳ {item.totalPrice + selected?.deliveryFee}</p> : <p>৳ {item.totalPrice}</p>
+          }
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Single Product Price </p>
@@ -155,12 +161,12 @@ const OrderItem = ({
           <p>Stock Remaining</p>
           <p>{individualStock?.stockQTY}</p>
         </div>
-        <div className="flex justify-start gap-2 items-center text-xs mt-2">
+        {/* <div className="flex justify-start gap-2 items-center text-xs mt-2">
           <input type="checkbox" />
           <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
             Do you want to Online Payment?
           </p>
-        </div>
+        </div> */}
         <div className="my-5">
           <hr />
         </div>
@@ -168,12 +174,13 @@ const OrderItem = ({
       <div className="bg-white mt-10 text-left px-10 pt-10 pb-5 rounded-md shadow-lg">
         <p className="font-semibold">Choose Payment Method</p>
         <div className="flex items-center gap-5">
-          <button
+        <button
             className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${isCODSelected
                 ? "border-fourth text-fourth"
                 : "border-ninth text-ninth"
-              }`}
+              } ${!selected ? "opacity-50 cursor-not-allowed" : ""}`}  // Disable styling if selected is missing
             onClick={handleCODClick}
+            disabled={!selected}  // Disable interaction if selected is missing
           >
             Cash On <br /> Delivery
           </button>
