@@ -15,8 +15,22 @@ const CheckoutPage = () => {
   const [, getRequest] = useRequest();
   const [customerDetails, setCustomerDetails] = useState(null);
   const [selected, setSelected] = useState(null);
+  const [allCharges, setAllCharges] = useState([]);
   const location = useLocation();
   const item = location.state?.item;
+  
+  const getAllDelvCharges = async ()=>{
+    try{
+      const response = await getRequest("/delivery/src/all");
+      setAllCharges(response?.data?.data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getAllDelvCharges();
+  },[])
 
   const options = [
     {
@@ -67,7 +81,7 @@ const CheckoutPage = () => {
                 customerDetails={customerDetails}
               ></BillingAddress>
               <DeliverySchedule
-                options={options}
+                allCharges={allCharges}
                 selected={selected}
                 handleClick={handleClick}
               ></DeliverySchedule>
