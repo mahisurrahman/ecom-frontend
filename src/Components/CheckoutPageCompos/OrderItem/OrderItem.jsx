@@ -52,6 +52,7 @@ const OrderItem = ({
         allTotalPrice: item.totalPrice + selected?.deliveryFee,
         totalQuantity: item.quantity,
         deliveryFee: selected?.deliveryFee,
+        deliveryShift: selected?.deliveryShift,
         discount: 0,
       };
 

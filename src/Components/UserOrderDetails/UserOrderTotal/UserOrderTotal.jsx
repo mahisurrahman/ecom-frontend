@@ -18,7 +18,7 @@ const UserOrderTotal = ({selectedOrder}) => {
       <div className="flex justify-between text-xs text-ninth mt-2">
         <p>Delivery Fee</p>
         <p>
-          Tk <span>10.00</span>
+          Tk <span>{selectedOrder?.deliveryFee}</span>
         </p>
       </div>
       <div className="flex justify-between text-xs text-ninth mt-2">
@@ -30,7 +30,7 @@ const UserOrderTotal = ({selectedOrder}) => {
       <div className="flex justify-between text-md text-primary mt-2">
         <p className="font-semibold">Total</p>
         <p>
-          Tk <span>{selectedOrder.allTotalPrice + 12.00}</span>
+          Tk <span>{selectedOrder.allTotalPrice + selectedOrder?.deliveryFee}</span>
         </p>
       </div>
     </div>

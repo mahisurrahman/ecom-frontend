@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 const CurrentOrders = ({ uOrder, index }) => {
   const [currentState, setCurrentState] = useState(null);
 
+  console.log("uOrder", uOrder);
+
   const orderStateHandle = async () => {
     try {
       if (uOrder.isCancelled === true) {
@@ -43,16 +45,24 @@ const CurrentOrders = ({ uOrder, index }) => {
         <p>{formatDate(uOrder.createdDate)}</p>
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-xs">
+        <p className="font-bold">Product Name: </p>
+        <p>{uOrder?.productName}</p>
+      </div>
+      <div className="mt-4 px-2 flex justify-between items-center text-xs">
+        <p className="font-bold">Quantity: </p>
+        <p>{uOrder?.totalQuantity}</p>
+      </div>
+      <div className="mt-4 px-2 flex justify-between items-center text-xs">
         <p className="font-bold">Delivery Time: </p>
-        <p>Null</p>
+        <p>{uOrder?.deliveryShift}</p>
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-xs">
         <p className="font-bold">Delivery Charge: </p>
-        <p>10 Tk</p>
+        <p>{uOrder?.deliveryFee} Tk</p>
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Product Purchased: </p>
-        <p>{uOrder.allTotalPrice} Tk</p>
+        <p>{uOrder.allTotalPrice + uOrder?.deliveryFee} Tk</p>
       </div>
       {/* <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Total Price: </p>

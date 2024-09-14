@@ -47,7 +47,7 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
   }, [currentState]);
 
   return (
-    <div>
+    <div className="h-[85vh]">
       <div className="px-10 py-10 flex items-center justify-between">
         <h1 className="font-bold">
           Order Details -{" "}
