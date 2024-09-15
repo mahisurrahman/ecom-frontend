@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const CurrentOrderDetails = ({ selectedOrder }) => {
   const [currentState, setCurrentState] = useState(null);
   const [postRequest, getRequest] = useRequest();
+  const [tax, setTax] = useState(0);
 
   const orderStateHandle = async () => {
     try {
@@ -46,6 +47,20 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
     orderStateHandle();
   }, [currentState]);
 
+
+  const getTax = async () =>{
+    try{
+      const response = await getRequest('/tax/src');
+      setTax(response?.data?.data[0]?.taxNumber);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getTax();
+  },[])
+
   return (
     <div className="h-[85vh]">
       <div className="px-10 py-10 flex items-center justify-between">
@@ -54,12 +69,12 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
           <span className="font-normal">{selectedOrder._id}</span>
         </h1>
         <div className="flex items-center gap-1 text-seventh font-semibold text-sm">
-          <button
+          {/* <button
             onClick={() => handleOrderDelete(selectedOrder._id)}
             className="px-4 py-1 font-bold rounded-full bg-red-700 text-white duration-700 hover:cursor-pointer hover:duration-700 hover:bg-red-400"
           >
             Refund
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="mt-2 px-5 mx-10 flex item-center justify-between py-4 rounded-lg bg-eight">
@@ -80,7 +95,7 @@ const CurrentOrderDetails = ({ selectedOrder }) => {
         <UserOrderShippingAddress
           selectedOrder={selectedOrder}
         ></UserOrderShippingAddress>
-        <UserOrderTotal selectedOrder={selectedOrder}></UserOrderTotal>
+        <UserOrderTotal selectedOrder={selectedOrder} tax={tax}></UserOrderTotal>
       </div>
       <div className="mt-5 px-10">
         <UserOrderedItems selectedOrder={selectedOrder}></UserOrderedItems>

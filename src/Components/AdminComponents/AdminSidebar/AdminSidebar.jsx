@@ -19,6 +19,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdDiscount } from "react-icons/md";
 import Swal from "sweetalert2";
 import { MdReviews } from "react-icons/md";
+import { PiElevatorFill } from "react-icons/pi";
 
 const AdminSidebar = ({ user, setUser }) => {
   const navigate = useNavigate("/");
@@ -188,6 +189,19 @@ const AdminSidebar = ({ user, setUser }) => {
       >
         <TbTruckDelivery className="text-2xl  mr-4" />
         Delivery Charges
+      </NavLink>
+      <NavLink
+        to="/admin/panel/tax"
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-bold text-fourth px-4 py-4 flex items-center gap-2"
+            : "hover:text-fourth px-4 py-4 flex items-center gap-2"
+        }
+      >
+        <PiElevatorFill className="text-2xl  mr-4" />
+        TAX Controll
       </NavLink>
       <NavLink
         to="/admin/panel/allcustomers"

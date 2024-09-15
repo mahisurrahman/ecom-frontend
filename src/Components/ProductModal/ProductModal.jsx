@@ -143,11 +143,18 @@ const ProductModal = ({ user, product, onClose, handleCart, handleNavigate, getS
               <p className="text-gray-700 mb-6">
                 {product?.productDescription || "No description available."}
               </p>
+              <p className="mt-10 text-gray-700 mb-6 font-bold">
+                Discount: <span className="font-normal">{product?.discount > 0 ? <p>{product?.discount}  %</p>: <p> "No Discount available."</p> }</span>
+              </p>
             </div>
             <div className="flex flex-col gap-4">
-              <p className="text-2xl font-bold text-primary">
+              {
+                product?.discount < 0 ? <p className="text-2xl font-bold text-primary">
                 {product?.sellingPrice.toFixed(2)} Tk
+              </p> : <p className="text-2xl font-bold text-primary">
+                {(product?.sellingPrice - (product?.discount/100)*product?.sellingPrice)} Tk
               </p>
+              }
               {
                 user?.userType === 1 ? (
                   <></>

@@ -19,8 +19,6 @@ const AllProducts = () => {
     loading,
   } = useContext(AuthContext);
 
-  const staticRating = 4.5; // Example rating out of 5
-  const staticRatingCount = 123;
   const [showProds, setShowProds] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null); // State for the selected product
   const [postRequest, getRequest] = useRequest();
@@ -203,7 +201,7 @@ const AllProducts = () => {
                        <p className="font-extrabold text-sm text-seventh">
                          Price:{" "}
                          <span className="text-lg font-extrabold text-primary">
-                           {item.sellingPrice} Tk
+                           {(item.sellingPrice-((item?.discount/100)*(item.sellingPrice)))} Tk
                          </span>
                        </p>
                      </div>
@@ -215,7 +213,7 @@ const AllProducts = () => {
                         <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
                           <span className="text-md font-extrabold text-primary">
-                            {Number(item.sellingPrice).toFixed(2)} Tk
+                            {(item.sellingPrice-((item?.discount/100)*(item.sellingPrice))).toFixed(2)} Tk
                           </span>
                         </p>
 

@@ -16,6 +16,8 @@ const OrderItem = ({
   const [postRequest, getRequest] = useRequest();
   const [individualStock, setIndividualStock] = useState(null);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [tax, setTax] = useState(0);
+  const [calculatedTax, setCalculatedTax] = useState(0.00);
   const navigate = useNavigate();
 
   const getStockRemaining = async () => {
@@ -30,6 +32,20 @@ const OrderItem = ({
       console.log(error);
     }
   };
+
+  const getTaxReport = async () =>{
+    try{
+      const response = await getRequest('/tax/src');
+      setTax(response?.data?.data[0]?.taxNumber);
+      setCalculatedTax(response?.data?.data[0]?.taxNumber /100 );
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getTaxReport();
+  },[]);
 
   const handlePlaceOrder = async (item) => {
     try {
@@ -49,7 +65,7 @@ const OrderItem = ({
         productName: item.productName,
         productThumb: item.productImage,
         productSellingPrice: item.totalPrice,
-        allTotalPrice: item.totalPrice + selected?.deliveryFee,
+        allTotalPrice: ((item.totalPrice+(calculatedTax * item?.totalPrice)) + selected?.deliveryFee),
         totalQuantity: item.quantity,
         deliveryFee: selected?.deliveryFee,
         deliveryShift: selected?.deliveryShift,
@@ -94,7 +110,7 @@ const OrderItem = ({
       productName: item.productName,
       productThumb: item.productImage,
       productSellingPrice: item.totalPrice,
-      allTotalPrice: item.totalPrice,
+      allTotalPrice: (item.totalPrice+(calculatedTax * item?.totalPrice)),
       totalQuantity: item.quantity,
       discount: 0,
     };
@@ -123,13 +139,13 @@ const OrderItem = ({
         <hr />
       </div>
       <div className="mt-10">
-        <div className="flex justify-between gap-2 items-center text-xs">
-          <p>Sub Total</p>
-          <p>৳ {item.totalPrice}</p>
-        </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Tax</p>
-          <p>৳ 0.00</p>
+          <p>{tax ? tax : 0.00}%</p>
+        </div>
+        <div className="flex justify-between gap-2 items-center text-xs">
+          <p>Sub Total</p>
+          <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice))}</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Shipping</p>
@@ -137,12 +153,6 @@ const OrderItem = ({
             selected && selected?.deliveryFee ? <p>৳ {selected?.deliveryFee}</p> :  <p>৳ 0.00</p>
           }
         </div>
-        {/* <div className="flex justify-between gap-2 items-center text-xs mt-2">
-          <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
-            Do you have coupon
-          </p>
-          <p></p>
-        </div> */}
         <div className="my-5">
           <hr />
         </div>
@@ -151,7 +161,7 @@ const OrderItem = ({
         <div className="font-bold flex justify-between gap-2 items-center text-xl">
           <p>Total</p>
           {
-            selected && selected?.deliveryFee ? <p>৳ {item.totalPrice + selected?.deliveryFee}</p> : <p>৳ {item.totalPrice}</p>
+            selected && selected?.deliveryFee ? <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice)) + selected?.deliveryFee}</p> : <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice))}</p>
           }
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
@@ -162,12 +172,6 @@ const OrderItem = ({
           <p>Stock Remaining</p>
           <p>{individualStock?.stockQTY}</p>
         </div>
-        {/* <div className="flex justify-start gap-2 items-center text-xs mt-2">
-          <input type="checkbox" />
-          <p className="text-xs font-bold text-ninth hover:text-fourth hover:cursor-pointer">
-            Do you want to Online Payment?
-          </p>
-        </div> */}
         <div className="my-5">
           <hr />
         </div>

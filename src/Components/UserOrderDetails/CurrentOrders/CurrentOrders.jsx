@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import useRequest from "../../../ApiServices/useRequest";
 
 const CurrentOrders = ({ uOrder, index }) => {
   const [currentState, setCurrentState] = useState(null);
-
-  console.log("uOrder", uOrder);
+  const [postRequest, getRequest] = useRequest();
+  const [tax, setTax] = useState(0);
 
   const orderStateHandle = async () => {
     try {
@@ -25,7 +26,19 @@ const CurrentOrders = ({ uOrder, index }) => {
     orderStateHandle();
   }, [currentState]);
 
-  
+  const getTax = async () =>{
+    try{
+      const response = await getRequest('/tax/src');
+      setTax(response?.data?.data[0]?.taxNumber);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getTax();
+  },[])
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Intl.DateTimeFormat("en-US", options).format(
@@ -62,7 +75,12 @@ const CurrentOrders = ({ uOrder, index }) => {
       </div>
       <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Product Purchased: </p>
-        <p>{uOrder.allTotalPrice + uOrder?.deliveryFee} Tk</p>
+        <p>
+          {uOrder?.allTotalPrice +
+            uOrder?.deliveryFee +
+            (tax / 100) * uOrder?.allTotalPrice}{" "}
+          Tk
+        </p>
       </div>
       {/* <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Total Price: </p>
