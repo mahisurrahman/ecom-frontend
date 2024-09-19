@@ -165,7 +165,7 @@ const AllProducts = () => {
             />
           </div>
           <div className="col-span-10 px-4 py-4 bg-fifth">
-            <div className="grid grid-cols-4 gap-x-2">
+            <div className="grid grid-cols-4 gap-x-2 gap-y-2">
               {showProds ? (
                 showProds.map((item) => (
                   <div
@@ -201,7 +201,7 @@ const AllProducts = () => {
                        <p className="font-extrabold text-sm text-seventh">
                          Price:{" "}
                          <span className="text-lg font-extrabold text-primary">
-                           {(item.sellingPrice-((item?.discount/100)*(item.sellingPrice)))} Tk
+                           {item?.sellingPrice} Tk
                          </span>
                        </p>
                      </div>

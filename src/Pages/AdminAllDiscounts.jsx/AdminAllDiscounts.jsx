@@ -21,25 +21,25 @@ const AdminAllDiscounts = () => {
     }
   };
 
-  const mergedProduct = async () => {
-    try {
-      // Use Promise.all to handle asynchronous map operations
-      const mergedData = await Promise.all(
-        discountedProds.map(async (item) => {
-          const response = await getRequest(`/products/src/byid/${item.productId}`);
-          const productData = response?.data?.data;
+  // const mergedProduct = async () => {
+  //   try {
+  //     // Use Promise.all to handle asynchronous map operations
+  //     const mergedData = await Promise.all(
+  //       discountedProds.map(async (item) => {
+  //         const response = await getRequest(`/products/src/byid/${item.productId}`);
+  //         const productData = response?.data?.data;
   
-          // Merging item data with product data
-          return { ...item, ...productData };
-        })
-      );
+  //         // Merging item data with product data
+  //         return { ...item, ...productData };
+  //       })
+  //     );
   
-      // Update state with merged data
-      setMergedItem(mergedData); 
-    } catch (error) {
-      console.log("Failed to merge products", error);
-    }
-  };
+  //     // Update state with merged data
+  //     setMergedItem(mergedData); 
+  //   } catch (error) {
+  //     console.log("Failed to merge products", error);
+  //   }
+  // };
 
   const handleApplyDiscountClick = () => {
     setIsModalOpen(true); // Open the modal when the button is clicked
@@ -62,10 +62,7 @@ const AdminAllDiscounts = () => {
         const removeProd = await getRequest(`/discount/del/${id}`);
         if(removeProd){
             Swal.fire("Successfully Removed the Discount");
-
-            // Update the mergedItem state to remove the deleted item
-            setMergedItem((prevMergedItem) => prevMergedItem.filter((product) => product.id !== id));
-            setDiscountedProds((prevDiscountedProds) => prevDiscountedProds.filter((prod) => prod.productId !== id));
+            setDiscountedProds((prevMergedItem) => prevMergedItem.filter((product) => product._id !== id));
         }
 
     }catch(error){
@@ -76,6 +73,7 @@ const AdminAllDiscounts = () => {
   const handleSubmit = async () => {
     try {
       const applyDiscount = await postRequest(`/discount/crt/${selectedProduct}`, { discountNumber: discountNumber });
+      console.log(applyDiscount, "Apply Discount");
 
       if(applyDiscount){
         Swal.fire("Successfully Added Discount");
@@ -83,6 +81,7 @@ const AdminAllDiscounts = () => {
 
       handleCloseModal();
     } catch (error) {
+      Swal.fire("This Product is Already Discounted, You can update it if you want. ")
       console.log("Failed to apply discount", error);
     }
   };
@@ -91,11 +90,11 @@ const AdminAllDiscounts = () => {
     getAllDiscountedProducts();
   }, []);
 
-  useEffect(() => {
-    if (discountedProds.length > 0) {
-      mergedProduct();
-    }
-  }, [discountedProds]); 
+  // useEffect(() => {
+  //   if (discountedProds.length > 0) {
+  //     mergedProduct();
+  //   }
+  // }, [discountedProds]); 
 
   return (
     <div className="">
@@ -110,10 +109,10 @@ const AdminAllDiscounts = () => {
       </div>
 
       <div className="bg-white rounded-lg mt-10 px-10 py-10">
-        {mergedItem.map((product) => (
+        {discountedProds && discountedProds?.map((product) => (
           <div key={product.id} className="w-full mb-10 border-b-2 grid grid-cols-4">
             <h3 className="text-2xl font-bold">{product.productName}</h3>
-            <h3 className="text-2xl font-bold">Discount : <span className="font-normal">{product.discountNumber}%</span></h3>
+            <h3 className="text-2xl font-bold">Discount : <span className="font-normal">{product.discount}%</span></h3>
             <h3 className="text-2xl font-bold">Final Price : <span className="font-normal">{product.sellingPrice} Taka </span></h3>
            <div className="flex items-center justify-end">
            <button onClick={()=>handleDeleteDiscount(product._id)} className="mb-2 px-4 py-2 bg-red-500 text-white font-bold rounded-lg duration-500 hover:duration-500 hover:scale-110 hover:cursor-pointer">Delete Discounts</button>
