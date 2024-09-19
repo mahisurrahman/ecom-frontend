@@ -185,10 +185,10 @@ const AllProducts = () => {
                         {item.productName}
                       </p>
                      
-                      <p className="font-bold text-sm mt-[2vh]">
+                      <p className="font-bold text-xs w-full mt-[2vh]">
                         Stock Remaining:{" "}
                         <span className="font-normal">
-                          {getStock(item._id)}
+                          {getStock(item?._id) === 0 ? 'Stock Out' : getStock(item._id)}
                         </span>
                       </p>
                       <p className="font-bold text-sm">
