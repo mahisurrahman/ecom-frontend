@@ -21,7 +21,7 @@ const BkashPaymentPageThree = () => {
         const orderCartData ={
             cartId : orderData.cartId,
         }
-        const orderProcessing = await postRequest(`${process.env.REACT_APP_BackendURL}/orders/crt`, orderCartData);
+        const orderProcessing = await postRequest(`${process.env.REACT_APP_BackendURL}/orders/crt`, orderData);
         console.log(orderProcessing?.data?.data, "Order Processing");
         setLoading(false);
         navigate("/");

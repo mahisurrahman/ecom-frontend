@@ -41,6 +41,12 @@ const PendingOrdersTable = ({
                     </th>
                     <th
                       scope="col"
+                      className="pl-20 py-3 text-start text-xs text-white font-extrabold uppercase"
+                    >
+                      Order Type
+                    </th>
+                    <th
+                      scope="col"
                       className="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
                     >
                       Action

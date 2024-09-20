@@ -10,14 +10,14 @@ const OrderItem = ({
   loading,
   allCarts,
   setAllCarts,
-  selected
+  selected,
 }) => {
   const [isCODSelected, setIsCODSelected] = useState(false);
   const [postRequest, getRequest] = useRequest();
   const [individualStock, setIndividualStock] = useState(null);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [tax, setTax] = useState(0);
-  const [calculatedTax, setCalculatedTax] = useState(0.00);
+  const [calculatedTax, setCalculatedTax] = useState(0.0);
   const navigate = useNavigate();
 
   const getStockRemaining = async () => {
@@ -33,23 +33,29 @@ const OrderItem = ({
     }
   };
 
-  const getTaxReport = async () =>{
-    try{
-      const response = await getRequest('/tax/src');
+  const getTaxReport = async () => {
+    try {
+      const response = await getRequest("/tax/src");
       setTax(response?.data?.data[0]?.taxNumber);
-      setCalculatedTax(response?.data?.data[0]?.taxNumber /100 );
-    }catch(error){
+      setCalculatedTax(response?.data?.data[0]?.taxNumber / 100);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getTaxReport();
-  },[]);
+  }, []);
 
   const handlePlaceOrder = async (item) => {
     try {
       setButtonLoading(true);
+      const productPriceWithTax =
+        tax > 0
+          ? item.totalPrice + calculatedTax * item.totalPrice
+          : item.totalPrice;
+      const allTotalPrice = productPriceWithTax + (selected?.deliveryFee || 0);
+
       const orderDetails = {
         cartId: item._id,
         userId: user._id,
@@ -65,23 +71,24 @@ const OrderItem = ({
         productName: item.productName,
         productThumb: item.productImage,
         productSellingPrice: item.totalPrice,
-        allTotalPrice: ((item.totalPrice+(calculatedTax * item?.totalPrice)) + selected?.deliveryFee),
+        allTotalPrice,
         totalQuantity: item.quantity,
         deliveryFee: selected?.deliveryFee,
         deliveryShift: selected?.deliveryShift,
-        discount: 0,
+        tax: tax,
+        discount: item.discount,
+        orderType: 1
       };
 
       const createOrder = await postRequest("/orders/crt", orderDetails);
       if (createOrder) {
-
-        //Remove Cart Items from the Cart State//
+        // Remove Cart Items from the Cart State //
         const filterCart = allCarts.filter(
           (ct) => ct._id !== orderDetails.cartId
         );
         setAllCarts(filterCart);
 
-        //Remove Cart Item using API//
+        // Remove Cart Item using API //
         if (filterCart) {
           Swal.fire(`Placed order of ${item.productName}`);
           navigate("/user/dash/orders");
@@ -95,6 +102,10 @@ const OrderItem = ({
   };
 
   const handleBkashPayment = (item) => {
+    const productPriceWithTax =
+      tax > 0
+        ? item.totalPrice + calculatedTax * item.totalPrice
+        : item.totalPrice;
     const orderDetails = {
       cartId: item._id,
       userId: user._id,
@@ -110,9 +121,10 @@ const OrderItem = ({
       productName: item.productName,
       productThumb: item.productImage,
       productSellingPrice: item.totalPrice,
-      allTotalPrice: (item.totalPrice+(calculatedTax * item?.totalPrice)),
+      allTotalPrice: productPriceWithTax,
       totalQuantity: item.quantity,
-      discount: 0,
+      discount: item.discount,
+      orderType: 2,
     };
 
     navigate("/user/dash/payment", { state: orderDetails });
@@ -141,17 +153,24 @@ const OrderItem = ({
       <div className="mt-10">
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Tax</p>
-          <p>{tax ? tax : 0.00}%</p>
+          <p>{tax ? tax : 0.0}%</p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs">
           <p>Sub Total</p>
-          <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice))}</p>
+          <p>
+            ৳{" "}
+            {tax > 0
+              ? (item.totalPrice + calculatedTax * item.totalPrice).toFixed(2)
+              : item.totalPrice}
+          </p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Shipping</p>
-          {
-            selected && selected?.deliveryFee ? <p>৳ {selected?.deliveryFee}</p> :  <p>৳ 0.00</p>
-          }
+          {selected && selected?.deliveryFee ? (
+            <p>৳ {selected?.deliveryFee}</p>
+          ) : (
+            <p>৳ 0.00</p>
+          )}
         </div>
         <div className="my-5">
           <hr />
@@ -160,9 +179,25 @@ const OrderItem = ({
       <div className="mt-10">
         <div className="font-bold flex justify-between gap-2 items-center text-xl">
           <p>Total</p>
-          {
-            selected && selected?.deliveryFee ? <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice)) + selected?.deliveryFee}</p> : <p>৳ {(item.totalPrice+(calculatedTax * item?.totalPrice))}</p>
-          }
+          {selected && selected?.deliveryFee ? (
+            <p>
+              ৳{" "}
+              {tax > 0
+                ? (
+                    item.totalPrice +
+                    calculatedTax * item.totalPrice +
+                    selected?.deliveryFee
+                  ).toFixed(2)
+                : (item.totalPrice + selected?.deliveryFee).toFixed(2)}
+            </p>
+          ) : (
+            <p>
+              ৳{" "}
+              {tax > 0
+                ? (item.totalPrice + calculatedTax * item.totalPrice).toFixed(2)
+                : item.totalPrice.toFixed(2)}
+            </p>
+          )}
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
           <p>Single Product Price </p>
@@ -179,13 +214,14 @@ const OrderItem = ({
       <div className="bg-white mt-10 text-left px-10 pt-10 pb-5 rounded-md shadow-lg">
         <p className="font-semibold">Choose Payment Method</p>
         <div className="flex items-center gap-5">
-        <button
-            className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${isCODSelected
+          <button
+            className={`mt-5 text-xs px-2 py-2 border-4 rounded-md font-semibold ${
+              isCODSelected
                 ? "border-fourth text-fourth"
                 : "border-ninth text-ninth"
-              } ${!selected ? "opacity-50 cursor-not-allowed" : ""}`}  // Disable styling if selected is missing
+            } ${!selected ? "opacity-50 cursor-not-allowed" : ""}`} // Disable styling if selected is missing
             onClick={handleCODClick}
-            disabled={!selected}  // Disable interaction if selected is missing
+            disabled={!selected} // Disable interaction if selected is missing
           >
             Cash On <br /> Delivery
           </button>
@@ -207,10 +243,11 @@ const OrderItem = ({
         ) : (
           <button
             onClick={() => handlePlaceOrder(item)}
-            className={`w-full py-2 font-semibold rounded-md border-2 duration-300 ${isCODSelected
+            className={`w-full py-2 font-semibold rounded-md border-2 duration-300 ${
+              isCODSelected
                 ? "bg-fourth text-white border-fourth hover:bg-white hover:text-primary hover:cursor-pointer hover:duration-300"
                 : "bg-ninth text-white border-ninth cursor-not-allowed"
-              }`}
+            }`}
             disabled={!isCODSelected || buttonLoading}
           >
             {buttonLoading ? "Processing..." : "Place Order"}

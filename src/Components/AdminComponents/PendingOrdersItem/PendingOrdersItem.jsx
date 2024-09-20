@@ -42,6 +42,13 @@ const PendingOrdersItem = ({
             <p className="pl-6 text-2xl font-bold text-red-500">-</p>
           )}
         </td>
+        <td className="pl-20 py-2 text-xs text-gray-600 text-left">
+          {order && order.orderType === 1 ? (
+            <>Cash On Delivery</>
+          ) : (
+            <p className="text-xs font-bold text-pink-500">BKASH</p>
+          )}
+        </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
           <button
             type="button"

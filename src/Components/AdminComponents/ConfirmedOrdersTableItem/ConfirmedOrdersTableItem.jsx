@@ -28,8 +28,15 @@ const ConfirmedOrdersTableItem = ({ order }) => {
             className="w-[3vw] h-auto"
           />
         </td>
-        <td className="pl-20 py-2 text-xs text-gray-600 text-left">
+        <td className="text-center *:py-2 text-xs text-gray-600">
           {formatDate(order.createdDate)}
+        </td>
+        <td className="pl-20 py-2 text-xs text-gray-600 text-left">
+          {order && order.orderType === 1 ? (
+            <>Cash on Delivery</>
+          ) : (
+            <p className="text-xs font-bold text-pink-500">Bkash</p>
+          )}
         </td>
         <td className="px-4 h-[10vh] flex items-center justify-center gap-2 text-xs font-medium">
           {/* <button

@@ -25,9 +25,15 @@ const ConfirmedOrdersTable = ({ orders }) => {
                     </th>
                     <th
                       scope="col"
-                      className="pl-14 py-3 text-start text-xs text-white font-extrabold uppercase"
+                      className="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
                     >
                       Order Placed At
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-center text-xs text-white font-extrabold uppercase"
+                    >
+                      Order Type
                     </th>
                     <th
                       scope="col"
