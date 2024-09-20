@@ -33,19 +33,31 @@ const OrderItem = ({
     }
   };
 
-  const getTaxReport = async () => {
-    try {
-      const response = await getRequest("/tax/src");
-      setTax(response?.data?.data[0]?.taxNumber);
-      setCalculatedTax(response?.data?.data[0]?.taxNumber / 100);
-    } catch (error) {
-      console.log(error);
+
+  const getTax = async()=>{
+    try{
+      const response = await getRequest('/tax/src');
+      setTax(response?.data?.data[0].taxNumber);
+
+      // let responseTwo = (response?.data?.data[0]);
+      // if (responseTwo.taxNumber > 0){
+      //   setTax(responseTwo.taxNumber);
+      // }else{
+      //   setTax(0);
+      // }
+
+    }catch(error){
+      console.log(error); 
     }
+
   };
 
-  useEffect(() => {
-    getTaxReport();
-  }, []);
+  useEffect(()=>{
+    getTax();
+  },[])
+
+
+
 
   const handlePlaceOrder = async (item) => {
     try {
@@ -71,11 +83,10 @@ const OrderItem = ({
         productName: item.productName,
         productThumb: item.productImage,
         productSellingPrice: item.totalPrice,
-        allTotalPrice,
+        allTotalPrice: item.totalPrice + ((tax/100)*item?.totalPrice) + selected?.deliveryFee,
         totalQuantity: item.quantity,
         deliveryFee: selected?.deliveryFee,
         deliveryShift: selected?.deliveryShift,
-        tax: tax,
         discount: item.discount,
         orderType: 1
       };
@@ -101,11 +112,8 @@ const OrderItem = ({
     }
   };
 
+
   const handleBkashPayment = (item) => {
-    const productPriceWithTax =
-      tax > 0
-        ? item.totalPrice + calculatedTax * item.totalPrice
-        : item.totalPrice;
     const orderDetails = {
       cartId: item._id,
       userId: user._id,
@@ -121,7 +129,7 @@ const OrderItem = ({
       productName: item.productName,
       productThumb: item.productImage,
       productSellingPrice: item.totalPrice,
-      allTotalPrice: productPriceWithTax,
+      allTotalPrice: item.totalPrice + ((tax/100)*item?.totalPrice),
       totalQuantity: item.quantity,
       discount: item.discount,
       orderType: 2,
@@ -160,8 +168,8 @@ const OrderItem = ({
           <p>
             ৳{" "}
             {tax > 0
-              ? (item.totalPrice + calculatedTax * item.totalPrice).toFixed(2)
-              : item.totalPrice}
+              ? (item?.totalPrice + ((tax/100)*item?.totalPrice)).toFixed(2)
+              : item?.totalPrice}
           </p>
         </div>
         <div className="flex justify-between gap-2 items-center text-xs my-1">
@@ -185,7 +193,7 @@ const OrderItem = ({
               {tax > 0
                 ? (
                     item.totalPrice +
-                    calculatedTax * item.totalPrice +
+                    ((tax/100)*item?.totalPrice) +
                     selected?.deliveryFee
                   ).toFixed(2)
                 : (item.totalPrice + selected?.deliveryFee).toFixed(2)}
@@ -194,7 +202,7 @@ const OrderItem = ({
             <p>
               ৳{" "}
               {tax > 0
-                ? (item.totalPrice + calculatedTax * item.totalPrice).toFixed(2)
+                ? (item.totalPrice + ((tax/100)*item?.totalPrice)).toFixed(2)
                 : item.totalPrice.toFixed(2)}
             </p>
           )}

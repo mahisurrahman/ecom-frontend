@@ -76,9 +76,7 @@ const CurrentOrders = ({ uOrder, index }) => {
       <div className="mt-4 px-2 flex justify-between items-center text-md">
         <p className="font-bold">Product Purchased: </p>
         <p>
-          {uOrder?.allTotalPrice +
-            uOrder?.deliveryFee +
-            (tax / 100) * uOrder?.allTotalPrice}{" "}
+          {uOrder?.allTotalPrice}{" "}
           Tk
         </p>
       </div>

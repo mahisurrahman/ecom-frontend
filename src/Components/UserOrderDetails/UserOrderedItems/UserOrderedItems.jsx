@@ -33,7 +33,7 @@ const UserOrderedItems = ({selectedOrder}) => {
                 {selectedOrder.productName}
               </th>
               <td className="px-6 py-4">{selectedOrder.totalQuantity}</td>
-              <td className="px-6 py-4">{selectedOrder.allTotalPrice} Tk</td>
+              <td className="px-6 py-4">{selectedOrder.totalQuantity > 1 ? selectedOrder.totalQuantity*selectedOrder.productSellingPrice : selectedOrder.productSellingPrice} Tk</td>
             </tr>
           </tbody>
         </table>

@@ -213,7 +213,7 @@ const AllProducts = () => {
                         <p className="font-extrabold text-sm text-seventh">
                           Price:{" "}
                           <span className="text-md font-extrabold text-primary">
-                            {(item.sellingPrice-((item?.discount/100)*(item.sellingPrice))).toFixed(2)} Tk
+                            {item.sellingPrice} Tk
                           </span>
                         </p>
 
